@@ -98,7 +98,7 @@
 			"prettier --write --loglevel warn"
 		],
 		"src/**/*.{less,css}": [
-			"stylelint --fix --custom-syntax postcss-less --cache"
+			"npm run lint:stylelint"
 		]
 	}
 }
