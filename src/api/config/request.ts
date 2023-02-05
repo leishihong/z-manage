@@ -19,7 +19,9 @@ const instance: AxiosInstance = axios.create({
   // paramsSerializer: (params) => stringify(params, { arrayFormat: 'comma', skipNulls: true })
 });
 
+// @ts-ignore
 instance.interceptors.request.use(requestInterceptor);
+// @ts-ignore
 instance.interceptors.response.use(responseInterceptor, errorInterceptor);
 
 export const post = (url: string, params = {}, options: any = {}) => {

@@ -23,7 +23,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 	const isReportMode = viteEnv.VITE_VISUALIZER_REPORT === 'true';
 	console.log(`output->mode`, mode, command);
 	console.log(`output->viteEnv.VITE_APP_BASE_PATH`, viteEnv.VITE_APP_BASE_PATH);
-
+  console.log(viteEnv,'viteEnv')
+  ;
 	return {
 		plugins: [
 			react(),
@@ -43,10 +44,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 					'[:bar]'
 				)} :percent`
 			}),
-			// eslintPlugin(),
-			// createStyleImportPlugin({
-			// 	resolves: [AntdResolve()]
-			// }),
+			eslintPlugin(),
+			createStyleImportPlugin({
+				resolves: [AntdResolve()]
+			}),
 			viteMockServe({
 				mockPath: 'mock',
 				localEnabled: true,
@@ -58,11 +59,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer();
         `
 			}),
-			visualizer({
-				open: isBuild && isReportMode, //注意这里要设置为true，否则无效
-				gzipSize: true,
-				brotliSize: true
-			}),
+			// visualizer({
+			// 	open: isBuild && isReportMode, //注意这里要设置为true，否则无效
+			// 	gzipSize: true,
+			// 	brotliSize: true
+			// }),
 			viteCompression({
 				verbose: true,
 				disable: false,
@@ -75,7 +76,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		],
 		resolve: {
 			alias: {
-				// '~antd': pathResolve('./node_modules/antd'),
+				'~antd': pathResolve('./node_modules/antd'),
 				src: pathResolve('src'), // 设置 `@` 指向 `src` 目录
 				api: pathResolve('src/api'),
 				components: pathResolve('src/components'),
