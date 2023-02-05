@@ -17,6 +17,7 @@ dayjs.locale("en");
 import "./App.less";
 
 const App: FC = () => {
+  console.log(3434, "222");
   return (
     <Provider store={store}>
       <PersistGate loading={<LoadingComponent />} persistor={persistor}>
