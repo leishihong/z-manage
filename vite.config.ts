@@ -58,11 +58,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer();
         `
 			}),
-			// visualizer({
-			// 	open: isBuild && isReportMode, //注意这里要设置为true，否则无效
-			// 	gzipSize: true,
-			// 	brotliSize: true
-			// }),
+			visualizer({
+				open: isBuild && isReportMode, //注意这里要设置为true，否则无效
+				gzipSize: true,
+				brotliSize: true
+			}),
 			viteCompression({
 				verbose: true,
 				disable: false,
