@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FeatureKey } from 'store/featureKey';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FeatureKey } from "store/featureKey";
 
 export interface ILoginState {
   token: string;
@@ -8,12 +8,12 @@ export interface ILoginState {
 }
 
 const initialState: ILoginState = {
-  token: '',
+  token: "",
   rememberPwd: false,
   loginInfo: {
-    userCode: '',
-    password: ''
-  }
+    userCode: "",
+    password: "",
+  },
 };
 
 const loginSlice = createSlice({
@@ -29,19 +29,28 @@ const loginSlice = createSlice({
     setAuthToken: (state, { payload }: PayloadAction<string>) => {
       state.token = payload;
     },
-    setLoginInfo: (state, { payload }: PayloadAction<{ [key: string]: any }>) => {
+    setLoginInfo: (
+      state,
+      { payload }: PayloadAction<{ [key: string]: any }>
+    ) => {
       state.loginInfo = payload.loginInfo;
     },
     clearLoginInfo: (state) => {
       if (!state.rememberPwd) {
-        state.loginInfo = { userCode: '', password: '' };
+        state.loginInfo = { userCode: "", password: "" };
         state.rememberPwd = false;
       }
-      state.token = '';
-    }
+      state.token = "";
+    },
   },
-  extraReducers: {}
+  extraReducers: {},
 });
-export const { loginOut, setLoginInfo, setAuthToken, setRememberPwd, clearLoginInfo } = loginSlice.actions;
+export const {
+  loginOut,
+  setLoginInfo,
+  setAuthToken,
+  setRememberPwd,
+  clearLoginInfo,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

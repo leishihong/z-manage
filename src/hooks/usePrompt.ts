@@ -1,9 +1,15 @@
-import React, { useContext, useEffect, useCallback, useState, useRef } from 'react';
-import { Modal } from 'antd';
-import { History, Transition } from 'history';
-import { UNSAFE_NavigationContext as NavigationContext } from 'react-router-dom';
+import React, {
+  useContext,
+  useEffect,
+  useCallback,
+  useState,
+  useRef,
+} from "react";
+import { Modal } from "antd";
+import { History, Transition } from "history";
+import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
 
-type ExtendNavigator = Navigator & Pick<History, 'block'>;
+type ExtendNavigator = Navigator & Pick<History, "block">;
 
 export const useBlocker = (blocker: (tx: Transition) => void, when = true) => {
   const { navigator }: any = useContext(NavigationContext);
@@ -11,17 +17,19 @@ export const useBlocker = (blocker: (tx: Transition) => void, when = true) => {
     if (!when) return;
     // 如不需要刷新页面或关闭tab时取消浏览器询问弹窗，下面的绑定事件则不需要
     // window.addEventListener('beforeunload', removeBeforeUnload);
-    const unblock = (navigator as any as ExtendNavigator).block((tx: { retry: () => void }) => {
-      const autoUnblockingTx: any = {
-        ...tx,
-        retry() {
-          unblock();
-          tx.retry();
-        }
-      };
+    const unblock = (navigator as any as ExtendNavigator).block(
+      (tx: { retry: () => void }) => {
+        const autoUnblockingTx: any = {
+          ...tx,
+          retry() {
+            unblock();
+            tx.retry();
+          },
+        };
 
-      blocker(autoUnblockingTx);
-    });
+        blocker(autoUnblockingTx);
+      }
+    );
     // 由于无法直接 remove history 库中绑定的 beforeunload 事件，只能自己在绑定一个 beforeunload 事件（在原事件之前），触发时调用 unblock
     function removeBeforeUnload() {
       unblock();
@@ -45,7 +53,7 @@ export const usePrompt = (message: any, when = true) => {
 
   const blocker = useCallback(
     (tx: { location: { pathname: any }; retry: () => void }) => {
-      if (typeof message === 'function') {
+      if (typeof message === "function") {
         let targetLocation = tx?.location?.pathname;
         if (targetLocation.startsWith(basename)) {
           targetLocation = targetLocation.substring(basename.length);
@@ -54,8 +62,12 @@ export const usePrompt = (message: any, when = true) => {
           tx.retry();
         };
         message(targetLocation, callback);
-      } else if (typeof message === 'string') {
-        if (window.confirm(message || '当前页面有未保存的内容，您确定要离开该页面吗?')) {
+      } else if (typeof message === "string") {
+        if (
+          window.confirm(
+            message || "当前页面有未保存的内容，您确定要离开该页面吗?"
+          )
+        ) {
           tx.retry();
         }
       }

@@ -10,7 +10,7 @@ import viteCompression from 'vite-plugin-compression';
 import { viteMockServe } from 'vite-plugin-mock';
 import viteProgress from 'vite-plugin-progress';
 import colors from 'picocolors';
-import checker from 'vite-plugin-checker'
+import checker from 'vite-plugin-checker';
 
 const pathResolve = (dir) => resolve(process.cwd(), dir);
 
@@ -27,9 +27,9 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 	return {
 		plugins: [
 			react(),
-      // checker({
-      //   typescript: true
-      // }),
+			// checker({
+			//   typescript: true
+			// }),
 			createHtmlPlugin({
 				entry: './src/main.tsx',
 				inject: {
@@ -58,13 +58,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer();
         `
 			}),
-			isBuild &&
-				isReportMode &&
-				visualizer({
-					open: true, //注意这里要设置为true，否则无效
-					gzipSize: true,
-					brotliSize: true
-				}),
+			// visualizer({
+			// 	open: isBuild && isReportMode, //注意这里要设置为true，否则无效
+			// 	gzipSize: true,
+			// 	brotliSize: true
+			// }),
 			viteCompression({
 				verbose: true,
 				disable: false,

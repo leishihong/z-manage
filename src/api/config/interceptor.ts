@@ -1,9 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { notification } from 'antd';
-import { store } from 'store/index';
-import { clearLoginInfo } from 'store/loginSlice';
-import { updateRouterPrompt } from 'store/globalSlice';
-import { HttpResponse } from '../type';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { notification } from "antd";
+import { store } from "store/index";
+import { clearLoginInfo } from "store/loginSlice";
+import { updateRouterPrompt } from "store/globalSlice";
+import { HttpResponse } from "../type";
 
 // 帮助取消pending中的接口
 let cancelToken: any = null;
@@ -15,24 +15,32 @@ export const requestInterceptor = (config: AxiosRequestConfig) => {
   const JwtToken: any = loginState.token ? { token: loginState.token } : {};
   config.headers = {
     ...config.headers,
-    platform: 'PC',
-    domain: 'admin_platform',
-    ...JwtToken
+    platform: "PC",
+    domain: "admin_platform",
+    ...JwtToken,
   };
   return config;
 };
 
-export const responseInterceptor = async (response: AxiosResponse<HttpResponse>) => {
+export const responseInterceptor = async (
+  response: AxiosResponse<HttpResponse>
+) => {
   const { data } = response;
   console.log(data);
   if (response.status === 200) {
     if ([200].includes(data.status)) {
       return data;
     } else if ([500, 501, 502, 503].includes(data.status)) {
-      console.log('网络异常，请稍后再试！', response);
-      notification.error({ message: '系统提示', description: '网络异常，请稍后再试！' });
+      console.log("网络异常，请稍后再试！", response);
+      notification.error({
+        message: "系统提示",
+        description: "网络异常，请稍后再试！",
+      });
     } else {
-      notification.error({ message: '系统提示', description: data.message || '网络异常，请稍后再试！' });
+      notification.error({
+        message: "系统提示",
+        description: data.message || "网络异常，请稍后再试！",
+      });
       if ([1130001].includes(data.status)) {
         await store.dispatch(updateRouterPrompt({ routerPrompt: true }));
         store.dispatch(clearLoginInfo());
@@ -45,12 +53,22 @@ export const responseInterceptor = async (response: AxiosResponse<HttpResponse>)
     return Promise.reject(Object.assign(response, { response }));
   } else {
     if ([500, 501, 502, 503].includes(response.status)) {
-      notification.error({ message: '系统提示', description: '网络异常，请稍后再试！' });
+      notification.error({
+        message: "系统提示",
+        description: "网络异常，请稍后再试！",
+      });
     } else {
-      notification.error({ message: '系统提示', description: response.data.message || '服务器异常，请稍后再试' });
+      notification.error({
+        message: "系统提示",
+        description: response.data.message || "服务器异常，请稍后再试",
+      });
     }
   }
-  console.warn('[axios:responseInterceptor]: un normalized api response', response.config.method, response.config.url);
+  console.warn(
+    "[axios:responseInterceptor]: un normalized api response",
+    response.config.method,
+    response.config.url
+  );
   return Promise.reject(Object.assign(response, { response }));
 };
 
