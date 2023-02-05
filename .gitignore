@@ -9,8 +9,12 @@ lerna-debug.log*
 
 node_modules
 dist
+manage-taste-boss-test
+manage-taste-boss
 dist-ssr
 *.local
+.eslintcache
+.stylelintcache
 
 # Editor directories and files
 .vscode/*

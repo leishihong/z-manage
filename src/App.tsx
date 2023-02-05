@@ -1,23 +1,45 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import { GlobalContext } from 'src/context';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { ConfigProvider, theme } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import LoadingComponent from 'components/Loading/index';
+
+import { store, persistor } from 'store/index';
+
 import router from 'routers/index';
+dayjs.locale('en');
+
 import './App.less';
 
-interface GlobalContext {
-	theme: string;
-	setTheme: (theme?: string) => void;
-}
-
 const App: FC = () => {
-	const [theme, setTheme] = useState<string>('light'); //主题 默认日间模式
-	const contextVal = { theme, setTheme } as GlobalContext;
 	return (
-		<div className="app-container">
-			<GlobalContext.Provider value={contextVal}>
-				<RouterProvider router={router} />
-			</GlobalContext.Provider>
-		</div>
+		<Provider store={store}>
+			<PersistGate loading={<LoadingComponent />} persistor={persistor}>
+				<ConfigProvider
+					componentSize="large"
+					locale={zhCN}
+					getPopupContainer={(triggerNode: any) => {
+						if (triggerNode) {
+							return triggerNode.parentNode;
+						}
+						return document.body;
+					}}
+					theme={{
+						token: {
+							colorPrimary: '#1F63FF'
+						}
+					}}
+				>
+					<div className="app-container">
+						<RouterProvider router={router} />
+					</div>
+				</ConfigProvider>
+			</PersistGate>
+		</Provider>
 	);
 };
 export default App;

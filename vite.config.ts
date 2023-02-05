@@ -8,6 +8,9 @@ import { createStyleImportPlugin, AntdResolve } from 'vite-plugin-style-import';
 import { visualizer } from 'rollup-plugin-visualizer';
 import viteCompression from 'vite-plugin-compression';
 import { viteMockServe } from 'vite-plugin-mock';
+import viteProgress from 'vite-plugin-progress';
+import colors from 'picocolors';
+import checker from 'vite-plugin-checker'
 
 const pathResolve = (dir) => resolve(process.cwd(), dir);
 
@@ -24,18 +27,26 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 	return {
 		plugins: [
 			react(),
+      // checker({
+      //   typescript: true
+      // }),
 			createHtmlPlugin({
-				entry: './src/index.tsx',
+				entry: './src/main.tsx',
 				inject: {
 					data: {
 						title: viteEnv.APP_DOCUMENT_TITLE
 					}
 				}
 			}),
-			eslintPlugin(),
-			createStyleImportPlugin({
-				resolves: [AntdResolve()]
+			viteProgress({
+				format: `${colors.green(colors.bold('Building'))} ${colors.cyan(
+					'[:bar]'
+				)} :percent`
 			}),
+			// eslintPlugin(),
+			// createStyleImportPlugin({
+			// 	resolves: [AntdResolve()]
+			// }),
 			viteMockServe({
 				mockPath: 'mock',
 				localEnabled: true,
@@ -66,6 +77,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		],
 		resolve: {
 			alias: {
+				// '~antd': pathResolve('./node_modules/antd'),
 				src: pathResolve('src'), // 设置 `@` 指向 `src` 目录
 				api: pathResolve('src/api'),
 				components: pathResolve('src/components'),
@@ -79,7 +91,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				routers: pathResolve('src/routers'),
 				store: pathResolve('src/store'),
 				constants: pathResolve('src/constants'),
-				'~antd': pathResolve('./node_modules/antd')
+				layout: pathResolve('src/layout')
 			}
 		},
 		css: {
@@ -94,11 +106,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				}
 			}
 		},
-    envPrefix: 'APP_',
+		envPrefix: 'APP_',
 		server: {
 			open: true,
 			host: true,
-			port: 8078,
+			port: 8068,
 			hmr: true
 		},
 		build: {
@@ -111,7 +123,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				output: {
 					chunkFileNames: 'assets/chunks/[name].[hash].js',
 					entryFileNames: 'assets/js/[name].[hash].js',
-          assetFileNames: "assets/[ext]/[name].[hash].[ext]"
+					assetFileNames: 'assets/[ext]/[name].[hash].[ext]'
 				}
 			}
 		}

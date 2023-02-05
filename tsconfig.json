@@ -28,7 +28,9 @@
       "styles/*": ["src/styles/*"],
       "routers/*": ["src/routers/*"],
       "store/*": ["src/store/*"],
-      "constants/*": ["src/constants/*"]
+      "constants/*": ["src/constants/*"],
+      "layout/*": ["src/layout/*"],
+      "views/*": ["src/views/*"],
     },
   },
   "include": ["src"],
