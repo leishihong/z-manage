@@ -29,7 +29,7 @@ const DefaultLayout: FC = (props: PropsWithChildren) => {
           name: '一级名称',
           children: [
             {
-              path: 'two',
+              path: '/audit/activity',
               name: '二级名称',
             },
           ],
@@ -37,7 +37,7 @@ const DefaultLayout: FC = (props: PropsWithChildren) => {
       ]}
       layout="mix"
       location={{
-        pathname: '/one/two',
+        pathname: '/audit/activity',
       }}
     >
       <Card>

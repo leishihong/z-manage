@@ -121,7 +121,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			open: true,
 			host: true,
 			port: 8068,
-			hmr: true
+			hmr: true,
 		},
 		build: {
 			outDir: ['production', 'staging'].includes(mode)

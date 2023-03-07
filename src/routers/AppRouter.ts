@@ -6,11 +6,6 @@ const routerFiles: any = import.meta.glob('views/**/router.(ts)', {
 	// import: 'default'
 });
 
-// const lazyLoad = (moduleName: string): any => {
-// 	const modules: any = import.meta.glob('src/*/**/*.tsx');
-// 	return lazy(modules[`/src/views/${moduleName}.tsx`]);
-// };
-
 let routerList: Array<IRouteType> = [];
 for (const path in routerFiles) {
 	routerList = [
@@ -24,21 +19,7 @@ const routesConfig: Array<IRouteType> = [
 		path: '/',
 		name: 'layout',
 		element: lazy(() => import('layout/index')),
-		children: [
-			{
-				path: '/',
-				name: 'home',
-				redirect: '/home'
-			},
-			{
-				path: '/home',
-				name: 'home',
-				// element: lazyLoad('home/index'),
-				element: lazyLoad('home/index'),
-				meta: { title: '首页' }
-			},
-			...routerList
-		]
+		children: [...routerList]
 	},
 	{
 		path: '/login',

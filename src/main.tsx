@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-import './index.css';
+import './index.less';
 
 const { VITE_APP_ENV } = import.meta.env;
 

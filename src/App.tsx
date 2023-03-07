@@ -38,7 +38,7 @@ const App: FC = () => {
 					}}
 				>
 					<div className="app-container">
-						<BrowserRouter basename="/">
+						<BrowserRouter>
 							<SetUpRoutes />
 						</BrowserRouter>
 					</div>

@@ -1,10 +1,11 @@
 import { ReactNode, FC, Fragment } from 'react';
 import { isEmpty, map, compact } from 'lodash';
 import { stringify } from 'query-string';
+
 import { Lazy } from 'utils/lazy';
+import { store } from 'store/index';
 
 import { IRouteType } from './type';
-import { store } from 'store/index';
 import routesConfig from './AppRouter';
 
 const renderRoutes = (routes: Array<IRouteType>) => {
