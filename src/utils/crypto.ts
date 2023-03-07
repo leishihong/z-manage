@@ -1,7 +1,7 @@
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 
-const DES_KEY = "Fpbi5jb2";
-const CryptoSecret = "__MANAGE_TASTE_CryptoJS_Secret__";
+const DES_KEY = 'Fpbi5jb2';
+const CryptoSecret = '__MANAGE_TASTE_CryptoJS_Secret__';
 
 const keyHex = CryptoJS.enc.Utf8.parse(DES_KEY);
 

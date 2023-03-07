@@ -4,12 +4,12 @@ import React, {
   useCallback,
   useState,
   useRef,
-} from "react";
-import { Modal } from "antd";
-import { History, Transition } from "history";
-import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
+} from 'react';
+import { Modal } from 'antd';
+import { History, Transition } from 'history';
+import { UNSAFE_NavigationContext as NavigationContext } from 'react-router-dom';
 
-type ExtendNavigator = Navigator & Pick<History, "block">;
+type ExtendNavigator = Navigator & Pick<History, 'block'>;
 
 export const useBlocker = (blocker: (tx: Transition) => void, when = true) => {
   const { navigator }: any = useContext(NavigationContext);
@@ -53,7 +53,7 @@ export const usePrompt = (message: any, when = true) => {
 
   const blocker = useCallback(
     (tx: { location: { pathname: any }; retry: () => void }) => {
-      if (typeof message === "function") {
+      if (typeof message === 'function') {
         let targetLocation = tx?.location?.pathname;
         if (targetLocation.startsWith(basename)) {
           targetLocation = targetLocation.substring(basename.length);
@@ -62,10 +62,10 @@ export const usePrompt = (message: any, when = true) => {
           tx.retry();
         };
         message(targetLocation, callback);
-      } else if (typeof message === "string") {
+      } else if (typeof message === 'string') {
         if (
           window.confirm(
-            message || "当前页面有未保存的内容，您确定要离开该页面吗?"
+            message || '当前页面有未保存的内容，您确定要离开该页面吗?'
           )
         ) {
           tx.retry();

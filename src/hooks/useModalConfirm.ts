@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal } from 'antd';
 
 export const useModalConfirm = () => {
   const modalConfirm = (
@@ -7,10 +7,10 @@ export const useModalConfirm = () => {
   ) => {
     const {
       content,
-      type = "confirm",
-      title = "温馨提示",
-      okText = "确定",
-      cancelText = "取消",
+      type = 'confirm',
+      title = '温馨提示',
+      okText = '确定',
+      cancelText = '取消',
       ...resetProps
     } = props;
     Modal.confirm({
@@ -22,7 +22,7 @@ export const useModalConfirm = () => {
       onOk: () => {
         return new Promise<void>((resolve, reject) => {
           callback((status) => {
-            if (status === "success") {
+            if (status === 'success') {
               resolve();
             } else {
               reject();

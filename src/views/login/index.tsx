@@ -6,7 +6,7 @@ import {
   FC,
   memo,
   useMemo,
-} from "react";
+} from 'react';
 import {
   Modal,
   Form,
@@ -18,26 +18,26 @@ import {
   Tabs,
   Row,
   Col,
-} from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import CaptchaCode from "react-captcha-code";
-import { useRequest } from "ahooks";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import type { CheckboxChangeEvent } from "antd/es/checkbox";
+} from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import CaptchaCode from 'react-captcha-code';
+import { useRequest } from 'ahooks';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
-import { useAppSelector, useAppDispatch } from "store/hooks";
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   setLoginInfo,
   setAuthToken,
   setRememberPwd,
   ILoginState,
-} from "store/loginSlice";
-import IconLoginBg from "assets/login-bg.jpg";
-import { fetchLogin } from "api/login";
-import { handleError } from "api/config/errorHandler";
+} from 'store/loginSlice';
+import IconLoginBg from 'assets/login-bg.jpg';
+import { fetchLogin } from 'api/login';
+import { handleError } from 'api/config/errorHandler';
 
-import cx from "./style/index.module.less";
-type LoginType = "phone" | "account";
+import cx from './style/index.module.less';
+type LoginType = 'phone' | 'account';
 
 const Login: FC = () => {
   const [form] = Form.useForm();
@@ -50,11 +50,11 @@ const Login: FC = () => {
   const dispatch = useAppDispatch();
   const [rememberPassword, setRememberPassword] =
     useState<boolean>(rememberPwd);
-  const [verifyCode, setVerifyCode] = useState<string>("");
+  const [verifyCode, setVerifyCode] = useState<string>('');
   const captchaCodeRef = useRef<any>();
-  const [loginType, setLoginType] = useState<LoginType>("account");
+  const [loginType, setLoginType] = useState<LoginType>('account');
 
-  const redirect = useMemo(() => searchParams.get("redirect"), []);
+  const redirect = useMemo(() => searchParams.get('redirect'), []);
 
   useEffect(() => {
     if (rememberPwd) {
@@ -74,7 +74,7 @@ const Login: FC = () => {
         if (redirect) {
           return window.location.replace(decodeURIComponent(redirect));
         }
-        navigate("/");
+        navigate('/');
         // window.location.href =
         // 	process.env.REACT_APP_BUILD_ENV === 'development'
         // 		? '/'
@@ -93,7 +93,7 @@ const Login: FC = () => {
     },
     onError: (error: any) => {
       handleError(error);
-      console.log(error, "error");
+      console.log(error, 'error');
     },
   });
 
@@ -103,16 +103,16 @@ const Login: FC = () => {
 
   const onSubmitClick = useCallback(async () => {
     const values = await form.validateFields();
-    const verificationCode = form.getFieldValue("verificationCode");
+    const verificationCode = form.getFieldValue('verificationCode');
     if (verifyCode === verificationCode) {
-      console.log(values, "values");
+      console.log(values, 'values');
       run(values);
     } else if (verificationCode) {
       form.setFields([
         {
-          name: "verificationCode",
+          name: 'verificationCode',
           value: verificationCode,
-          errors: ["验证码输入有误"],
+          errors: ['验证码输入有误'],
         },
       ]);
       captchaCodeRef.current?.refresh();
@@ -121,18 +121,18 @@ const Login: FC = () => {
 
   const onAuth = useCallback(() => {
     Modal.confirm({
-      title: "温馨提示",
-      content: "请联系「热爱光年」管理员为您处理",
+      title: '温馨提示',
+      content: '请联系「热爱光年」管理员为您处理',
     });
   }, []);
   return (
-    <div className={cx["login-container"]}>
-      <div className={cx["login-bg-wrapper"]}>
+    <div className={cx['login-container']}>
+      <div className={cx['login-bg-wrapper']}>
         <img src={IconLoginBg} />
       </div>
-      <div className={cx["form-wrapper"]}>
-        <div className={cx["form-wrapper__right"]}>
-          <div className={cx["login-form-title"]}>欢迎登录「热爱光年」</div>
+      <div className={cx['form-wrapper']}>
+        <div className={cx['form-wrapper__right']}>
+          <div className={cx['login-form-title']}>欢迎登录「热爱光年」</div>
           {/* <Tabs
 						centered
 						activeKey={loginType}
@@ -142,14 +142,14 @@ const Login: FC = () => {
 						<Tabs.TabPane key={'phone'} tab={'手机号登录'} />
 					</Tabs> */}
           <Spin spinning={loading}>
-            <div className={cx["login-form-wrapper"]}>
-              <div className={cx["login-form-error-msg"]} />
-              <Form form={form} className={cx["login-form"]} layout="vertical">
-                {loginType === "account" && (
+            <div className={cx['login-form-wrapper']}>
+              <div className={cx['login-form-error-msg']} />
+              <Form form={form} className={cx['login-form']} layout="vertical">
+                {loginType === 'account' && (
                   <Form.Item noStyle>
                     <Form.Item
                       name="userCode"
-                      rules={[{ required: true, message: "账号不能为空" }]}
+                      rules={[{ required: true, message: '账号不能为空' }]}
                     >
                       <Input
                         prefix={<UserOutlined />}
@@ -159,7 +159,7 @@ const Login: FC = () => {
                     </Form.Item>
                     <Form.Item
                       name="password"
-                      rules={[{ required: true, message: "密码不能为空" }]}
+                      rules={[{ required: true, message: '密码不能为空' }]}
                     >
                       <Input.Password
                         prefix={<LockOutlined />}
@@ -167,11 +167,11 @@ const Login: FC = () => {
                       />
                     </Form.Item>
                     <Form.Item noStyle>
-                      <div className={cx["captcha-code-wrapper"]}>
+                      <div className={cx['captcha-code-wrapper']}>
                         <Form.Item
                           name="verificationCode"
                           rules={[
-                            { required: true, message: "验证码不能为空" },
+                            { required: true, message: '验证码不能为空' },
                           ]}
                         >
                           <Input
@@ -181,7 +181,7 @@ const Login: FC = () => {
                           />
                         </Form.Item>
                         <CaptchaCode
-                          className={cx["captcha-code"]}
+                          className={cx['captcha-code']}
                           ref={captchaCodeRef}
                           charNum={5}
                           height={36}
@@ -191,18 +191,18 @@ const Login: FC = () => {
                     </Form.Item>
                   </Form.Item>
                 )}
-                {loginType === "phone" && (
+                {loginType === 'phone' && (
                   <Form.Item>
                     <Form.Item
                       name="phoneNumber"
                       rules={[
                         {
                           required: true,
-                          message: "请输入手机号！",
+                          message: '请输入手机号！',
                         },
                         {
                           pattern: /^1\d{10}$/,
-                          message: "手机号格式错误！",
+                          message: '手机号格式错误！',
                         },
                       ]}
                     >
@@ -220,18 +220,18 @@ const Login: FC = () => {
                           rules={[
                             {
                               required: true,
-                              message: "请输入验证码",
+                              message: '请输入验证码',
                             },
                           ]}
                         >
                           <Input
                             placeholder="请输入验证码"
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                           />
                         </Form.Item>
                       </Col>
                       <Col span={12}>
-                        <Button type="primary" style={{ width: "100%" }}>
+                        <Button type="primary" style={{ width: '100%' }}>
                           获取验证码
                         </Button>
                       </Col>
@@ -239,7 +239,7 @@ const Login: FC = () => {
                   </Form.Item>
                 )}
                 <Button
-                  className={cx["login-form-submit-btn"]}
+                  className={cx['login-form-submit-btn']}
                   type="primary"
                   shape="round"
                   block
@@ -250,13 +250,13 @@ const Login: FC = () => {
                 <Form.Item>
                   <Space
                     align="center"
-                    className={cx["login-form-password-actions"]}
+                    className={cx['login-form-password-actions']}
                   >
                     <Form.Item
                       name="rememberMe"
                       valuePropName="checked"
                       noStyle
-                      className={cx["login-form-remember"]}
+                      className={cx['login-form-remember']}
                     >
                       <Checkbox
                         checked={rememberPassword}
@@ -273,7 +273,7 @@ const Login: FC = () => {
               </Form>
             </div>
           </Spin>
-          <div className={cx["register-tip"]}>
+          <div className={cx['register-tip']}>
             没有账号，
             <Button type="link" onClick={onAuth}>
               去注册？
@@ -285,6 +285,6 @@ const Login: FC = () => {
   );
 };
 
-Login.displayName = "LoginPage";
+Login.displayName = 'LoginPage';
 
 export default memo(Login);

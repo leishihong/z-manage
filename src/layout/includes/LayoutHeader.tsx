@@ -6,9 +6,9 @@ import {
   FC,
   memo,
   useCallback,
-} from "react";
-import { Tooltip, Input, Avatar, Modal, Dropdown } from "antd";
-import type { MenuProps } from "antd";
+} from 'react';
+import { Tooltip, Input, Avatar, Modal, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 import {
   BellOutlined,
   SettingOutlined,
@@ -17,18 +17,18 @@ import {
   ExpandOutlined,
   CompressOutlined,
   LoadingOutlined,
-} from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { useFullscreen, useRequest } from "ahooks";
+} from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { useFullscreen, useRequest } from 'ahooks';
 
-import { useAppSelector, useAppDispatch } from "store/hooks";
-import { GlobalState, updateRouterPrompt } from "store/globalSlice";
-import { handleLogout } from "store/loginSlice/actions";
+import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { GlobalState, updateRouterPrompt } from 'store/globalSlice';
+import { handleLogout } from 'store/loginSlice/actions';
 
 // import Logo from '@/assets/logo.svg';
-import IconButton from "./IconButton";
+import IconButton from './IconButton';
 
-import styles from "../style/index.module.less";
+import styles from '../style/index.module.less';
 
 const Navbar: FC = () => {
   const { userInfo, userLoading } = useAppSelector(
@@ -43,38 +43,38 @@ const Navbar: FC = () => {
       handleLogout({
         callback: async () => {
           await dispatch(updateRouterPrompt({ routerPrompt: true }));
-          navigate("/login");
+          navigate('/login');
         },
       })
     );
   }, []);
 
-  const menuItemList: MenuProps["items"] = [
+  const menuItemList: MenuProps['items'] = [
     {
       label: (
         <Fragment>
-          <SettingOutlined className={styles["dropdown-icon"]} />
+          <SettingOutlined className={styles['dropdown-icon']} />
           用户设置
         </Fragment>
       ),
-      key: "setting",
+      key: 'setting',
     },
     {
       label: (
         <Fragment>
-          <PoweroffOutlined className={styles["dropdown-icon"]} />
+          <PoweroffOutlined className={styles['dropdown-icon']} />
           用户设置
         </Fragment>
       ),
-      key: "logout",
+      key: 'logout',
     },
   ];
-  const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
-    console.log("click", key);
-    if (key === "logout") {
+  const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+    console.log('click', key);
+    if (key === 'logout') {
       Modal.confirm({
-        title: "温馨提示",
-        content: "您确定要退出登录吗？",
+        title: '温馨提示',
+        content: '您确定要退出登录吗？',
         onOk: handleClickLogout,
       });
     }
@@ -86,7 +86,7 @@ const Navbar: FC = () => {
         <div className={styles.left}>
           <div className={styles.logo}>
             {/* <Logo /> */}
-            <div className={styles["logo-name"]}>热爱光年</div>
+            <div className={styles['logo-name']}>热爱光年</div>
           </div>
         </div>
         <ul className={styles.right}>
@@ -94,7 +94,7 @@ const Navbar: FC = () => {
             <Input.Search className={styles.round} placeholder="输入内容查询" />
           </li>
           <li>
-            <Tooltip title={isFullscreen ? "退出全屏" : "全屏"}>
+            <Tooltip title={isFullscreen ? '退出全屏' : '全屏'}>
               <IconButton
                 onClick={toggleFullscreen}
                 icon={
@@ -110,7 +110,7 @@ const Navbar: FC = () => {
                 placement="bottomRight"
                 disabled={userLoading}
               >
-                <Avatar size={32} style={{ cursor: "pointer" }}>
+                <Avatar size={32} style={{ cursor: 'pointer' }}>
                   {userLoading ? (
                     <LoadingOutlined />
                   ) : (

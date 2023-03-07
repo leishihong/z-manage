@@ -1,7 +1,7 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers } from '@reduxjs/toolkit';
 
-import globalSlice from "./globalSlice/index";
-import loginSlice from "./loginSlice/index";
+import globalSlice from './globalSlice/index';
+import loginSlice from './loginSlice/index';
 
 /**
  * Combine reducers

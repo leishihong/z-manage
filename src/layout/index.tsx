@@ -1,16 +1,16 @@
-import { PropsWithChildren, FC, memo, ReactNode } from "react";
-import { Outlet } from "react-router-dom";
-import { Layout, Button, FloatButton, Card, theme } from "antd";
+import { PropsWithChildren, FC, memo, ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Layout, Button, FloatButton, Card, theme } from 'antd';
 import {
   QuestionCircleOutlined,
   SyncOutlined,
   SmileOutlined,
   DoubleRightOutlined,
-} from "@ant-design/icons";
-import { css } from "@emotion/css";
-import { PageContainer, ProLayout } from "@ant-design/pro-components";
-import type { ProSettings } from "@ant-design/pro-components";
-import LayoutHeader from "./includes/LayoutHeader";
+} from '@ant-design/icons';
+import { css } from '@emotion/css';
+import { PageContainer, ProLayout } from '@ant-design/pro-components';
+import type { ProSettings } from '@ant-design/pro-components';
+import LayoutHeader from './includes/LayoutHeader';
 
 const { Header, Content, Footer } = Layout;
 
@@ -24,20 +24,20 @@ const DefaultLayout: FC = (props: PropsWithChildren) => {
       pageTitleRender={false}
       menuDataRender={() => [
         {
-          path: "/one",
+          path: '/one',
           icon: <SmileOutlined />,
-          name: "一级名称",
+          name: '一级名称',
           children: [
             {
-              path: "two",
-              name: "二级名称",
+              path: 'two',
+              name: '二级名称',
             },
           ],
         },
       ]}
       layout="mix"
       location={{
-        pathname: "/one/two",
+        pathname: '/one/two',
       }}
     >
       <Card>

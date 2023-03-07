@@ -1,32 +1,74 @@
-import { lazy, Suspense, ReactNode } from "react";
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { ReactNode, FC, Fragment } from 'react';
+import { isEmpty, map, compact } from 'lodash';
+import { stringify } from 'query-string';
+import { Lazy } from 'utils/lazy';
 
-import LoadingComponent from "components/Loading/index";
+import { IRouteType } from './type';
+import { store } from 'store/index';
+import routesConfig from './AppRouter';
 
-import LayoutPage from "layout/index";
-import LoginPage from "views/login/index";
+const renderRoutes = (routes: Array<IRouteType>) => {
+	return map(routes, (item: IRouteType & any) => {
+		const res: any = { ...item };
+		if (!item?.path) return;
+		if (item.element) {
+			res.element = Lazy(
+				<BeforeEach route={item}>
+					<item.element />
+				</BeforeEach>
+			);
+		}
+		// children
+		if (!isEmpty(item.children)) {
+			res.children = compact(renderRoutes(item.children));
+		}
+		// 重定向
+		if (item.redirect) {
+			res.element = <Navigate to={item.redirect} replace />;
+		}
 
-const NotFound = lazy(() => import("views/exception/403/index"));
+		return res;
+	});
+};
 
-const load = (children: ReactNode): ReactNode => (
-  <Suspense fallback={<LoadingComponent />}>{children}</Suspense>
-);
-//定义路由数据
-export const routes: RouteObject[] = [
-  {
-    path: "/",
-    element: <LayoutPage />,
-    children: [
-      {
-        path: "*",
-        element: load(<NotFound />),
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-];
+interface IProps {
+	route: IRouteType;
+	children: ReactNode;
+}
+const defaultProps = {
+	route: {
+		meta: {
+			title: ''
+		}
+	}
+} as IProps;
 
-export default createBrowserRouter(routes);
+export const BeforeEach: FC<Partial<IProps>> = (props) => {
+	const { route } = { ...defaultProps, ...props };
+	const { pathname, search } = useLocation();
+	const navigate = useNavigate();
+	const { token } = store.getState().loginState;
+	const redirectParams = {
+		search,
+		redirect: encodeURIComponent(window.location.href)
+	};
+	if (route?.meta?.title) {
+		document.title = route.meta.title;
+	}
+	// 看是否登录 requiresAuth && token
+	if (route?.meta?.requiresAuth && !token) {
+		navigate(`/login?${stringify(redirectParams)}`, { replace: true });
+		// <Navigate to={`/login?${stringify(redirectParams)}`} replace />;
+	}
+	return <Fragment>{props.children}</Fragment>;
+};
+
+// 路由注册
+export default function SetUpRoutes() {
+	console.log(
+		compact(renderRoutes(routesConfig)),
+		'renderRoutes(routesConfig)'
+	);
+	const element = useRoutes(compact(renderRoutes(routesConfig)));
+	return element;
+}

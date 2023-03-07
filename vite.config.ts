@@ -1,10 +1,12 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite';
 import type { UserConfig, ConfigEnv } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
-import eslintPlugin from 'vite-plugin-eslint';
+import viteEslintPlugin from 'vite-plugin-eslint';
+// import viteStylelint from 'vite-plugin-stylelint';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { createStyleImportPlugin, AntdResolve } from 'vite-plugin-style-import';
+import AutoImport from 'unplugin-auto-import/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import viteCompression from 'vite-plugin-compression';
 import { viteMockServe } from 'vite-plugin-mock';
@@ -23,11 +25,16 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 	const isReportMode = viteEnv.VITE_VISUALIZER_REPORT === 'true';
 	console.log(`output->mode`, mode, command);
 	console.log(`output->viteEnv.VITE_APP_BASE_PATH`, viteEnv.VITE_APP_BASE_PATH);
-  console.log(viteEnv,'viteEnv')
-  ;
+	console.log(viteEnv, 'viteEnv');
 	return {
 		plugins: [
 			react(),
+			splitVendorChunkPlugin(),
+			AutoImport({
+				imports: ['react', 'react-router-dom'],
+				dts: 'src/auto-import.d.ts' // 路径下自动生成文件夹存放全局指令
+			}),
+
 			// checker({
 			//   typescript: true
 			// }),
@@ -35,7 +42,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				entry: './src/main.tsx',
 				inject: {
 					data: {
-						title: viteEnv.APP_DOCUMENT_TITLE
+						title: '我的热爱'
 					}
 				}
 			}),
@@ -44,7 +51,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 					'[:bar]'
 				)} :percent`
 			}),
-			eslintPlugin(),
+			viteEslintPlugin(),
+			// viteStylelint(),
 			createStyleImportPlugin({
 				resolves: [AntdResolve()]
 			}),
@@ -92,6 +100,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				constants: pathResolve('src/constants'),
 				layout: pathResolve('src/layout')
 			}
+			// 忽略后缀名的配置选项, 添加  选项时要记得原本默认忽略的选项也要手动写入
+			// extensions: ['.ts', '.jsx', '.tsx', '.json']
 		},
 		css: {
 			preprocessorOptions: {
@@ -105,7 +115,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				}
 			}
 		},
-		envPrefix: 'APP_',
+		// 以 envPrefix 开头的环境变量会通过 import.meta.env 暴露在你的客户端源码中。
+		// envPrefix: 'APP_',
 		server: {
 			open: true,
 			host: true,

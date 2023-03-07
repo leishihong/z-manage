@@ -7,9 +7,9 @@ import React, {
   useMemo,
   forwardRef,
   useImperativeHandle,
-} from "react";
-import { createPortal } from "react-dom";
-import Player, { IPlayerOptions } from "xgplayer";
+} from 'react';
+import { createPortal } from 'react-dom';
+import Player, { IPlayerOptions } from 'xgplayer';
 
 interface IScreenShot {
   screenShot?: {
@@ -20,11 +20,11 @@ interface IScreenShot {
 type TypeIPlayerOptions = IPlayerOptions & IScreenShot;
 
 const defaultOptions: TypeIPlayerOptions = {
-  lang: "zh-cn", //zh-cn' | 'en' | 'jp'
+  lang: 'zh-cn', //zh-cn' | 'en' | 'jp'
   autoplay: false, // 是否自动播放
   volume: 0.6, // 播放器音量
-  url: "", // 播放地址
-  poster: "", // 封面图
+  url: '', // 播放地址
+  poster: '', // 封面图
   // closeInactive: true, //放器控制栏常驻不隐藏
   playsinline: false, // 控制操作调是否常驻
   playbackRate: [0.5, 0.75, 1, 1.5, 2], // 倍速播放
@@ -34,16 +34,16 @@ const defaultOptions: TypeIPlayerOptions = {
   screenShot: {
     saveImg: true,
     quality: 0.92,
-    type: "image/png",
-    format: ".png",
+    type: 'image/png',
+    format: '.png',
   },
-  keyShortcut: "on",
+  keyShortcut: 'on',
   keyShortcutStep: {
     //设置调整步长
     currentTime: 15, //播放进度调整步长，默认10秒
     volume: 0.2, //音量调整步长，默认0.1
   },
-  fitVideoSize: "auto", // 'fixWidth' | 'fixHeight' | 'auto'
+  fitVideoSize: 'auto', // 'fixWidth' | 'fixHeight' | 'auto'
   // width: 400,
   // height: 300,
   fluid: true, // 流式布局
@@ -66,7 +66,7 @@ const VideoPlayer: FC<IProps> = forwardRef((props, ref) => {
   const playerContainer = useRef<any>();
   const playerRef = useRef<any>();
   const isBoolean = useMemo(
-    () => typeof getContainer === "boolean",
+    () => typeof getContainer === 'boolean',
     [getContainer]
   );
   useEffect(() => {

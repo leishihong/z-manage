@@ -1,6 +1,6 @@
-import React from "react";
-import { Result, Button } from "antd";
-import styles from "./style/index.module.less";
+import React from 'react';
+import { Result, Button } from 'antd';
+import styles from './style/index.module.less';
 
 function Exception500() {
   return (

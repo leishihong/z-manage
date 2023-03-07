@@ -5,14 +5,14 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-} from "react";
-import { PaginationProps, message } from "antd";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useRequest } from "ahooks";
+} from 'react';
+import { PaginationProps, message } from 'antd';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 
-import { IResponseData } from "api/type";
+import { IResponseData } from 'api/type';
 
-import { useModalConfirm } from "hooks/useModalConfirm";
+import { useModalConfirm } from 'hooks/useModalConfirm';
 
 interface IProps {
   fetchApi: any;
@@ -61,7 +61,7 @@ export const useArcoTable = ({
 
   const handleSearch = useCallback(
     (value: any) => {
-      const [startTime = "", endTime = ""] = value.createTime ?? [];
+      const [startTime = '', endTime = ''] = value.createTime ?? [];
       setPatination((preState) => Object.assign({}, preState, { current: 1 }));
       setInitialValues((preState: any) =>
         Object.assign({}, preState, { ...value, startTime, endTime })
@@ -93,15 +93,15 @@ export const useArcoTable = ({
 
   const handleAction = useCallback(
     async (record: any, actionType: string, pathname?: string) => {
-      const statusText = record.status ? "启用" : "禁用";
+      const statusText = record.status ? '启用' : '禁用';
       switch (actionType) {
-        case "view":
+        case 'view':
           if (pathname) navigate(pathname);
           break;
-        case "edit":
+        case 'edit':
           if (pathname) navigate(pathname);
           break;
-        case "status":
+        case 'status':
           modalConfirm(
             { content: `确定${statusText}吗？` },
             async (callback) => {
@@ -118,20 +118,20 @@ export const useArcoTable = ({
                       return [...preState];
                     });
                   }
-                  callback("success");
+                  callback('success');
                   message.success(`${statusText}成功`);
                 } else {
-                  callback("failed");
+                  callback('failed');
                 }
               } catch (error) {
-                callback("failed");
+                callback('failed');
               }
             }
           );
           break;
-        case "delete":
+        case 'delete':
           modalConfirm(
-            { content: "删除后不可恢复，确定删除？" },
+            { content: '删除后不可恢复，确定删除？' },
             async (callback) => {
               try {
                 const params = { id: record.id };
@@ -146,13 +146,13 @@ export const useArcoTable = ({
                       return [...preState];
                     });
                   }
-                  callback("success");
-                  message.success("删除成功");
+                  callback('success');
+                  message.success('删除成功');
                 } else {
-                  callback("failed");
+                  callback('failed');
                 }
               } catch (error) {
-                callback("failed");
+                callback('failed');
               }
             }
           );

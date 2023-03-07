@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, memo, useMemo } from "react";
-import TopLoadingBar from "react-top-loading-bar";
-import { useAppSelector } from "store/hooks";
+import React, { useEffect, useRef, memo, useMemo } from 'react';
+import TopLoadingBar from 'react-top-loading-bar';
+import { useAppSelector } from 'store/hooks';
 
 const LoadingBar = () => {
   const settings = useAppSelector(({ globalState }) => globalState.settings);

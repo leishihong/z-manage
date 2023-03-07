@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeatureKey } from "store/featureKey";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FeatureKey } from 'store/featureKey';
 
 export interface GlobalState {
   settings: any;
@@ -18,7 +18,7 @@ export interface GlobalState {
 }
 
 const initialState: GlobalState = {
-  settings: { themeColor: "#1F63FF" },
+  settings: { themeColor: '#1F63FF' },
   collapsed: false,
   userInfo: {
     permissions: {},

@@ -6,9 +6,9 @@ import React, {
   useCallback,
   useState,
   useRef,
-} from "react";
-import { Modal } from "antd";
-import { useBlocker } from "hooks/usePrompt";
+} from 'react';
+import { Modal } from 'antd';
+import { useBlocker } from 'hooks/usePrompt';
 
 interface IProps {
   when: boolean;

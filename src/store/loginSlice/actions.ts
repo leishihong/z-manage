@@ -1,6 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { FeatureKey } from "store/featureKey";
-import { setLoginInfo, clearLoginInfo } from "./index";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { FeatureKey } from 'store/featureKey';
+import { setLoginInfo, clearLoginInfo } from './index';
 // import { fetchLogout } from 'api/login';
 
 export const handleLogout = createAsyncThunk(
