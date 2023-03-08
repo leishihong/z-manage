@@ -10,11 +10,15 @@ import { clearLoginInfo } from 'store/loginSlice';
 import { updateRouterPrompt } from 'store/globalSlice';
 import { HttpResponse } from '../type';
 
+import { AxiosCanceler } from './axiosCanceler';
+
 // 帮助取消pending中的接口
 let cancelToken: any = null;
+const axiosCanceler = new AxiosCanceler();
 
 export const requestInterceptor = (config: AxiosRequestConfig) => {
 	config.cancelToken = new axios.CancelToken((c) => (cancelToken = c));
+	axiosCanceler.addPending(config);
 	const { loginState } = store.getState();
 	console.log(`output->loginState`, loginState);
 	const JwtToken: any = loginState.token ? { token: loginState.token } : {};
@@ -31,8 +35,10 @@ export const requestInterceptor = (config: AxiosRequestConfig) => {
 export const responseInterceptor = async (
 	response: AxiosResponse<HttpResponse>
 ) => {
-	const { data } = response;
+	const { data, config } = response;
 	console.log(data);
+	// * 在请求结束后，移除本次请求
+	axiosCanceler.removePending(config);
 	if (response.status === 200) {
 		if ([200].includes(data.status)) {
 			return data;

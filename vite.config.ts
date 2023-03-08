@@ -13,6 +13,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import viteProgress from 'vite-plugin-progress';
 import colors from 'picocolors';
 import checker from 'vite-plugin-checker';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 const pathResolve = (dir) => resolve(process.cwd(), dir);
 
@@ -67,11 +68,18 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer();
         `
 			}),
-			// visualizer({
-			// 	open: isBuild && isReportMode, //注意这里要设置为true，否则无效
-			// 	gzipSize: true,
-			// 	brotliSize: true
-			// }),
+			// * 使用 svg 图标
+			createSvgIconsPlugin({
+				iconDirs: [pathResolve('src/assets/icons')],
+				symbolId: 'icon-[dir]-[name]'
+			}),
+			// * 是否生成包预览
+			visualizer({
+				open: isBuild && isReportMode, //注意这里要设置为true，否则无效
+				gzipSize: true,
+				brotliSize: true
+			}),
+			// * gzip compress
 			viteCompression({
 				verbose: true,
 				disable: false,
@@ -121,7 +129,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			open: true,
 			host: true,
 			port: 8068,
-			hmr: true,
+			hmr: true
+		},
+		esbuild: {
+			pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
 		},
 		build: {
 			outDir: ['production', 'staging'].includes(mode)
@@ -129,6 +140,13 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				: 'manage-taste-boss-test',
 			assetsDir: 'static',
 			manifest: true,
+			minify: 'terser',
+			terserOptions: {
+				compress: {
+					drop_console: viteEnv.VITE_DROP_CONSOLE == 'true' ? true : false,
+					drop_debugger: true
+				}
+			},
 			rollupOptions: {
 				output: {
 					chunkFileNames: 'assets/chunks/[name].[hash].js',

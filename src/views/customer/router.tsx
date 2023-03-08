@@ -1,17 +1,18 @@
-import { lazyLoad, Lazy } from 'utils/lazy';
+import LayoutPage from 'layout/index';
+
+import { lazyLoad } from 'utils/lazy';
 
 export default [
 	{
-		path: '/customer',
 		name: 'customer',
-    element: lazy(() => import('layout/OutletLayout')),
+    // element: <LayoutPage/>,
 		meta: {
 			title: '客服中心',
 			requiresAuth: false
 		},
 		children: [
 			{
-        path: '/customer/customer',
+				path: '/customer/customer',
 				name: 'customer',
 				element: lazyLoad('customer'),
 				meta: {

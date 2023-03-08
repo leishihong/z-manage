@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_APP_API_PREFIX: string;
   readonly VITE_APP_URL: string;
   readonly VITE_APP_A_AMP_SECURITY_JS_CODE: string;
+  readonly VITE_DROP_CONSOLE:boolean
   // 更多环境变量...
 }
 

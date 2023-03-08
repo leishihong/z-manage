@@ -1,13 +1,12 @@
-import { lazyLoad, Lazy } from 'utils/lazy';
+import LayoutPage from 'layout/index';
+import { lazyLoad } from 'utils/lazy';
 
 export default [
 	{
-    path: '/manage',
 		name: 'manage',
-    element: lazy(() => import('layout/OutletLayout')),
+		// element: <LayoutPage/>,
 		meta: {
-			title: '管理中心',
-			requiresAuth: false
+			title: '管理中心'
 		},
 		children: [
 			{
@@ -16,7 +15,7 @@ export default [
 				element: lazyLoad('activity-manage'),
 				meta: {
 					title: '活动列表',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			},
 			{
@@ -25,7 +24,7 @@ export default [
 				element: lazyLoad('community-manage'),
 				meta: {
 					title: '社团列表',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			},
 			{
@@ -34,7 +33,7 @@ export default [
 				element: lazyLoad('moka-manage'),
 				meta: {
 					title: 'MoKa管理',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			}
 		]

@@ -95,7 +95,8 @@
 		"vite-plugin-mock": "^2.9.6",
 		"vite-plugin-progress": "^0.0.6",
 		"vite-plugin-style-import": "^2.0.0",
-		"vite-plugin-stylelint": "^4.2.0"
+		"vite-plugin-stylelint": "^4.2.0",
+		"vite-plugin-svg-icons": "^2.0.1"
 	},
 	"lint-staged": {
 		"src/**/*.{ts,tsx}": [

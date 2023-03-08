@@ -1,36 +1,31 @@
-import { lazyLoad, Lazy } from 'utils/lazy';
-
-import { Outlet, Navigate } from 'react-router-dom';
+import LayoutPage from 'layout/index';
+import { lazyLoad } from 'utils/lazy';
 
 export default [
 	{
-		path: '/audit',
 		name: 'audit',
-		element: lazy(() => import('layout/OutletLayout')),
+		// element: <LayoutPage/>,
 		meta: {
-			title: '审核中心',
-			requiresAuth: false
+			title: '审核中心'
 		},
 		children: [
 			{
 				name: 'activityAudit',
-				index: true,
 				path: '/audit/activity',
-        element: lazy(() => import('views/audit/activity-audit')),
+				element: lazy(() => import('views/audit/activity-audit')),
 				// element: lazyLoad('activity-audit'),
 				meta: {
 					title: '活动发布',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			},
 			{
 				name: 'communityAudit',
 				path: '/audit/community',
-				index: true,
 				element: lazyLoad('community-audit'),
 				meta: {
 					title: '社团入驻',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			}
 		]

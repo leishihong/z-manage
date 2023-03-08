@@ -1,22 +1,18 @@
-import { ReactNode, FC, Fragment } from 'react';
 import { isEmpty, map, compact } from 'lodash';
-import { stringify } from 'query-string';
 
-import { Lazy } from 'utils/lazy';
-import { store } from 'store/index';
-
-import { IRouteType } from './type';
+import { lazySuspense } from 'utils/lazy';
 import routesConfig from './AppRouter';
+import AuthRouter from './AuthRouter';
+import { RouteObject } from './type';
 
-const renderRoutes = (routes: Array<IRouteType>) => {
-	return map(routes, (item: IRouteType & any) => {
+const renderRoutes = (routes: Array<RouteObject>) => {
+	return map(routes, (item: RouteObject & any) => {
 		const res: any = { ...item };
-		if (!item?.path) return;
-		if (item.element) {
-			res.element = Lazy(
-				<BeforeEach route={item}>
+		if (item.element && item.path) {
+			res.element = lazySuspense(
+				<AuthRouter>
 					<item.element />
-				</BeforeEach>
+				</AuthRouter>
 			);
 		}
 		// children
@@ -30,38 +26,6 @@ const renderRoutes = (routes: Array<IRouteType>) => {
 
 		return res;
 	});
-};
-
-interface IProps {
-	route: IRouteType;
-	children: ReactNode;
-}
-const defaultProps = {
-	route: {
-		meta: {
-			title: ''
-		}
-	}
-} as IProps;
-
-export const BeforeEach: FC<Partial<IProps>> = (props) => {
-	const { route } = { ...defaultProps, ...props };
-	const { pathname, search } = useLocation();
-	const navigate = useNavigate();
-	const { token } = store.getState().loginState;
-	const redirectParams = {
-		search,
-		redirect: encodeURIComponent(window.location.href)
-	};
-	if (route?.meta?.title) {
-		document.title = route.meta.title;
-	}
-	// 看是否登录 requiresAuth && token
-	if (route?.meta?.requiresAuth && !token) {
-		navigate(`/login?${stringify(redirectParams)}`, { replace: true });
-		// <Navigate to={`/login?${stringify(redirectParams)}`} replace />;
-	}
-	return <Fragment>{props.children}</Fragment>;
 };
 
 // 路由注册

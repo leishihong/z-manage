@@ -1,13 +1,12 @@
+import LayoutPage from 'layout/index';
 import { lazyLoad } from 'utils/lazy';
 
 export default [
 	{
-		path: '/operation',
 		name: 'operation',
-		element: lazy(() => import('layout/OutletLayout')),
+		// element: <LayoutPage />,
 		meta: {
-			title: '营销配置',
-			requiresAuth: false
+			title: '营销配置'
 		},
 		children: [
 			{
@@ -16,7 +15,7 @@ export default [
 				element: lazyLoad('banner-advertise'),
 				meta: {
 					title: '横幅广告',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			},
 			{
@@ -25,7 +24,7 @@ export default [
 				element: lazyLoad('hot-news'),
 				meta: {
 					title: '热门资讯',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			},
 			{
@@ -34,7 +33,7 @@ export default [
 				element: lazyLoad('hot-discussion'),
 				meta: {
 					title: '热门讨论',
-					requiresAuth: false
+					requiresAuth: true
 				}
 			}
 		]
