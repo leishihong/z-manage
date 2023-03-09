@@ -30,7 +30,7 @@ const formatMenuRouterList = (dataSource: any) => {
 const routesConfig: any = [
 	{
 		path: '/',
-		redirect: '/welcome',
+		redirect: '/home',
 	},
 	{
 		name: 'layout',

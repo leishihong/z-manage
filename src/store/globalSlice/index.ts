@@ -1,20 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FeatureKey } from 'store/featureKey';
 import { GlobalState } from './interface';
-import { WELCOME_URL } from 'constants/config';
+import { HOME_URL } from 'constants/config';
 
 const initialState: GlobalState = {
-	settings: { themeColor: '#1F63FF' },
+	settings: {
+		themeColor: '#1677FF',
+		breadcrumb: true,
+		tagViews: true,
+		footer: false
+	},
 	isCollapsed: false,
 	userInfo: {
-		permissions: {},
+		permissions: {}
 	},
 	authButtons: {},
 	authRouter: [],
 	routerPrompt: false,
-	slideMenuList:[],
+	slideMenuList: [],
 	breadcrumbList: {},
-	tagViewList: [{ title: '欢迎页', path: WELCOME_URL }],
+	tagViewList: [{ title: '首页', path: HOME_URL }]
 };
 
 const globalSlice = createSlice({
@@ -38,15 +43,33 @@ const globalSlice = createSlice({
 		setAuthRouter: (state, { payload }: PayloadAction<GlobalState & any>) => {
 			state.authRouter = payload.authRouter;
 		},
-		setBreadcrumbList: (state, { payload }: PayloadAction<GlobalState & any>) => {
+		setBreadcrumbList: (
+			state,
+			{ payload }: PayloadAction<GlobalState & any>
+		) => {
 			state.breadcrumbList = payload.breadcrumbList;
 		},
-		setSlideMenuList:(state, { payload }: PayloadAction<GlobalState & any>)=>{
+		setSlideMenuList: (
+			state,
+			{ payload }: PayloadAction<GlobalState & any>
+		) => {
 			state.slideMenuList = payload.slideMenuList;
+		},
+		setTagViewList:(state,
+			{ payload }: PayloadAction<GlobalState & any>)=>{
+				state.tagViewList = payload.tagViewList;
 		}
 	},
-	extraReducers: {},
+	extraReducers: {}
 });
-export const { updateUserInfo, toggleCollapse, updateRouterPrompt, setAuthButtons, setAuthRouter, setBreadcrumbList } =
-	globalSlice.actions;
+export const {
+	updateUserInfo,
+	toggleCollapse,
+	updateRouterPrompt,
+	setAuthButtons,
+	setAuthRouter,
+	setBreadcrumbList,
+	setSlideMenuList,
+	setTagViewList
+} = globalSlice.actions;
 export default globalSlice.reducer;

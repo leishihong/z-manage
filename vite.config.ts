@@ -126,9 +126,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		// 以 envPrefix 开头的环境变量会通过 import.meta.env 暴露在你的客户端源码中。
 		// envPrefix: 'APP_',
 		server: {
-			open: true,
+			port: Number(viteEnv.VITE_PORT),
+			open: viteEnv.VITE_OPEN,
 			host: true,
-			port: 8068,
+			cors: true,
 			hmr: true
 		},
 		esbuild: {

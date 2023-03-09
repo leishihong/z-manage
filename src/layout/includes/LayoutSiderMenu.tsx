@@ -1,17 +1,20 @@
 import { FC, ReactNode, createElement } from 'react';
-import { Outlet } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
 import { map, isEmpty } from 'lodash';
 import * as Icons from '@ant-design/icons';
 
-import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { toggleCollapse, setAuthRouter, setBreadcrumbList } from 'store/globalSlice';
-import { formatMenuRouterList, routerList } from 'routers/AppRouter';
+import LogoCircle from 'assets/images/logo-circle.png';
 
+import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { setSlideMenuList, setAuthRouter, setBreadcrumbList } from 'store/globalSlice';
+import { formatMenuRouterList, routerList } from 'routers/AppRouter';
 import { searchRoute, getOpenKeys, findAllBreadcrumb, handleRouter } from '../utils';
 
-const { Sider, Content } = Layout;
+import cx from 'layout/style/index.module.less'
+
+
+const { Sider } = Layout;
 
 // 定义 menu 类型
 type MenuItem = Required<MenuProps>['items'][number];
@@ -51,14 +54,14 @@ const LayoutSiderMenu: FC = () => {
 	};
 
 	const getMenuData = async () => {
-		console.log(deepLoopFloat(formatMenuRouterList(routerList)), 'formatRouterList(routerList)', routerList);
 		setMenuList(deepLoopFloat(formatMenuRouterList(routerList)));
 		// 存储处理过后的所有面包屑导航栏到 redux 中
-		dispatch(setBreadcrumbList({ breadcrumbList: findAllBreadcrumb(formatMenuRouterList(routerList)) }));
+		await dispatch(setBreadcrumbList({ breadcrumbList: findAllBreadcrumb(formatMenuRouterList(routerList)) }));
 		// 把路由菜单处理成一维数组，存储到 redux 中，做菜单权限判断
 		const dynamicRouter = handleRouter(formatMenuRouterList(routerList));
-		dispatch(setAuthRouter({ authRouter: dynamicRouter }));
-		// setMenuList(formatMenuRouterList(routerList));
+		await dispatch(setAuthRouter({ authRouter: dynamicRouter }));
+		// 暂时隐藏有时间处理
+		// await dispatch(setSlideMenuList({ slideMenuList: formatMenuRouterList(routerList) }));
 	};
 	useEffect(() => {
 		getMenuData();
@@ -85,14 +88,17 @@ const LayoutSiderMenu: FC = () => {
 		if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
 		setOpenKeys([latestOpenKey]);
 	}, []);
-console.log(menuList,'menuList')
 
 	return (
-		<Sider trigger={null} collapsible collapsed={isCollapsed} width={220} theme="dark">
-			<div>
-				<div></div>
+		<Sider className={cx['layout-slide']} trigger={null} collapsible collapsed={isCollapsed} width={220} theme="dark">
+			<div className={cx['layout-slide-content']}>
+			<div className={cx['logo-box']}>
+			<img src={LogoCircle} alt="logo" className={cx['logo-img']} />
+			{!isCollapsed ? <h2 className={cx['logo-text']}>我的热爱</h2> : null}
+		</div>
 				<Menu
 					theme="dark"
+					className={cx['layout-slide-menu']}
 					mode="inline"
 					triggerSubMenuAction="click"
 					openKeys={openKeys}

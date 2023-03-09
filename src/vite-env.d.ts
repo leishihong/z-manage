@@ -1,17 +1,18 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_APP_TITLE: string;
-  readonly VITE_APP_BASE_PATH: string;
-  readonly VITE_APP_API_PREFIX: string;
-  readonly VITE_APP_URL: string;
-  readonly VITE_APP_A_AMP_SECURITY_JS_CODE: string;
-  readonly VITE_DROP_CONSOLE:boolean
-  // 更多环境变量...
+	readonly VITE_APP_TITLE: string;
+	readonly VITE_APP_BASE_PATH: string;
+	readonly VITE_APP_API_PREFIX: string;
+	readonly VITE_APP_URL: string;
+	readonly VITE_APP_A_AMP_SECURITY_JS_CODE: string;
+	readonly VITE_DROP_CONSOLE: boolean;
+	readonly VITE_PORT: number;
+	// 更多环境变量...
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
+	readonly env: ImportMetaEnv;
 }
 
 declare module '*.png';
@@ -19,15 +20,15 @@ declare module '*.svg';
 declare module '*.jpg';
 // 定义 less 类型
 declare module '*.less' {
-  const classes: { readonly [key: string]: string };
-  export default classes;
+	const classes: { readonly [key: string]: string };
+	export default classes;
 }
 
 declare module '@ant-design/pro-components';
 
 declare interface Window {
-  _AMapSecurityConfig: any;
-  AMap: any;
+	_AMapSecurityConfig: any;
+	AMap: any;
 }
 declare let AMap: any;
 declare let AMapUI: any;

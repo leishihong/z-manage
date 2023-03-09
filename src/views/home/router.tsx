@@ -4,12 +4,13 @@ import { lazyLoad } from 'utils/lazy';
 
 export default [
 	{
-		path: '/welcome',
-		name: 'welcome',
-		element: lazyLoad('welcome/index'),
+		path: '/home',
+		name: 'home',
+		element: lazyLoad('home/index'),
 		meta: {
 			title: '欢迎页',
-			requiresAuth: false
+			requiresAuth: false,
+			key:'home'
 		}
 	}
 ];

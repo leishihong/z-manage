@@ -43,6 +43,7 @@
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": ["off"],
 		"@typescript-eslint/no-explicit-any": ["off"],
+		"react-hooks/rules-of-hooks": "off",
 		"react-hooks/exhaustive-deps": ["off"],
 		"react/display-name": "off",
 		// 方法前是否要一个空格 always: 总是要
@@ -63,7 +64,7 @@
 		],
 		"prettier/prettier": "off",
 		"react/jsx-no-undef": "off",
-		"react/prop-types": "off"
+		"react/prop-types": "off",
 		// "no-unused-vars": 0,
 		// "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }]
 	}

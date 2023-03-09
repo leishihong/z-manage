@@ -1,12 +1,15 @@
 import { PropsWithChildren, FC, memo, ReactNode, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout, Button, FloatButton, Card, theme } from 'antd';
+import { Layout, Button, FloatButton, Card } from 'antd';
 import { QuestionCircleOutlined, SyncOutlined, SmileOutlined, DoubleRightOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { PageContainer, ProLayout, ProCard, SettingDrawer } from '@ant-design/pro-components';
 import type { ProSettings } from '@ant-design/pro-components';
+
 import LayoutHeader from './includes/LayoutHeader';
 import LayoutSiderMenu from './includes/LayoutSiderMenu';
+import LayoutTagViews from './includes/LayoutTagViews'
+
 import { layoutRouterList } from 'routers/AppRouter';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { toggleCollapse, setAuthButtons } from 'store/globalSlice';
@@ -20,9 +23,7 @@ const DefaultLayout: FC = () => {
 	const { isCollapsed }: GlobalState = useAppSelector(({ globalState }) => globalState);
 	const dispatch = useAppDispatch();
 	const [pathname, setPathname] = useState('/default');
-	const [settings, setSetting] = useState<any>({
-		layout: 'side',
-	});
+
 	// 获取按钮权限列表
 	const getAuthButtonsList = async () => {
 		// const { data } = await getAuthorButtons();
@@ -88,21 +89,10 @@ const DefaultLayout: FC = () => {
 				}}
 				disableUrlParams={false}
 			/> */}
-			<Layout>
 				<LayoutSiderMenu />
-				<Header
-					style={{
-						position: 'sticky',
-						top: 0,
-						zIndex: 1,
-						width: '100%',
-						padding: 0,
-						backgroundColor: 'transparent',
-					}}
-				>
-					<LayoutHeader />
-				</Header>
 				<Content className="main-content">
+				<LayoutHeader />
+					<LayoutTagViews/>
 					<div className="content-box">
 						<div
 							className="article-content"
@@ -116,7 +106,6 @@ const DefaultLayout: FC = () => {
 						</div>
 					</div>
 				</Content>
-			</Layout>
 		</section>
 	);
 };
