@@ -5,6 +5,7 @@ export default [
 	{
 		name: 'operation',
 		// element: <LayoutPage />,
+		path:'/operation',
 		meta: {
 			title: '营销配置'
 		},
@@ -12,28 +13,31 @@ export default [
 			{
 				path: '/operation/bannerAdvertise',
 				name: 'bannerAdvertise',
-				element: lazyLoad('banner-advertise'),
+				element: lazyLoad('operation/banner-advertise'),
 				meta: {
 					title: '横幅广告',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'bannerAdvertise'
 				}
 			},
 			{
 				path: '/operation/hotNews',
 				name: 'hotNews',
-				element: lazyLoad('hot-news'),
+				element: lazyLoad('operation/hot-news'),
 				meta: {
 					title: '热门资讯',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'hotNews'
 				}
 			},
 			{
 				path: '/operation/hotDiscussion',
 				name: 'hotDiscussion',
-				element: lazyLoad('hot-discussion'),
+				element: lazyLoad('operation/hot-discussion'),
 				meta: {
 					title: '热门讨论',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'hotDiscussion'
 				}
 			}
 		]

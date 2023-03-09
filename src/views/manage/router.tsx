@@ -5,6 +5,7 @@ export default [
 	{
 		name: 'manage',
 		// element: <LayoutPage/>,
+		path:'/manage',
 		meta: {
 			title: '管理中心'
 		},
@@ -12,28 +13,31 @@ export default [
 			{
 				path: '/manage/activity',
 				name: 'activityManage',
-				element: lazyLoad('activity-manage'),
+				element: lazyLoad('manage/activity-manage'),
 				meta: {
 					title: '活动列表',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'activity'
 				}
 			},
 			{
 				path: '/manage/community',
 				name: 'communityManage',
-				element: lazyLoad('community-manage'),
+				element: lazyLoad('manage/community-manage'),
 				meta: {
 					title: '社团列表',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'community'
 				}
 			},
 			{
 				path: '/manage/moka',
 				name: 'moKaManage',
-				element: lazyLoad('moka-manage'),
+				element: lazyLoad('manage/moka-manage'),
 				meta: {
 					title: 'MoKa管理',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'moka'
 				}
 			}
 		]

@@ -69,10 +69,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         `
 			}),
 			// * 使用 svg 图标
-			createSvgIconsPlugin({
-				iconDirs: [pathResolve('src/assets/icons')],
-				symbolId: 'icon-[dir]-[name]'
-			}),
+			// createSvgIconsPlugin({
+			// 	iconDirs: [pathResolve('src/assets/icons')],
+			// 	symbolId: 'icon-[dir]-[name]'
+			// }),
 			// * 是否生成包预览
 			visualizer({
 				open: isBuild && isReportMode, //注意这里要设置为true，否则无效

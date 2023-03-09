@@ -11,7 +11,6 @@ import { store, persistor } from 'store/index';
 
 import SetUpRoutes from 'routers/index';
 import Components from 'components/index';
-import './App.less';
 
 dayjs.locale('en');
 
@@ -33,15 +32,13 @@ const App: FC = () => {
 					}}
 					theme={{
 						token: {
-							colorPrimary: '#1F63FF'
+							colorPrimary: '#1677FF'
 						}
 					}}
 				>
-					<div className="app-container">
-						<BrowserRouter>
-							<SetUpRoutes />
-						</BrowserRouter>
-					</div>
+					<BrowserRouter>
+						<SetUpRoutes />
+					</BrowserRouter>
 				</ConfigProvider>
 			</PersistGate>
 		</Provider>

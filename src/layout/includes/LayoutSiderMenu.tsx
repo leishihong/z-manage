@@ -1,0 +1,108 @@
+import { FC, ReactNode, createElement } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+import type { MenuProps } from 'antd';
+import { map, isEmpty } from 'lodash';
+import * as Icons from '@ant-design/icons';
+
+import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { toggleCollapse, setAuthRouter, setBreadcrumbList } from 'store/globalSlice';
+import { formatMenuRouterList, routerList } from 'routers/AppRouter';
+
+import { searchRoute, getOpenKeys, findAllBreadcrumb, handleRouter } from '../utils';
+
+const { Sider, Content } = Layout;
+
+// 定义 menu 类型
+type MenuItem = Required<MenuProps>['items'][number];
+
+const getItem = (label: ReactNode, key?: React.Key | null, icon?: ReactNode, children?: MenuItem[], type?: 'group'): MenuItem => {
+	return {
+		key,
+		icon,
+		children,
+		label,
+		type,
+	} as MenuItem;
+};
+
+const LayoutSiderMenu: FC = () => {
+	const { pathname } = useLocation();
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const { isCollapsed } = useAppSelector(({ globalState }) => globalState);
+	const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
+	const [openKeys, setOpenKeys] = useState<string[]>([]);
+	// 获取菜单列表并处理成 antd menu 需要的格式
+	const [menuList, setMenuList] = useState<MenuItem[]>([]);
+	// 动态渲染 Icon 图标
+	const customIcons: { [key: string]: any } = Icons;
+	const addIcon = (name: string) => {
+		return createElement(customIcons[name]);
+	};
+	// 处理后台返回菜单 key 值为 antd 菜单需要的 key 值
+	const deepLoopFloat = (menuList: Menu.MenuOptions[], newArr: MenuItem[] = []) => {
+		menuList.forEach((item: Menu.MenuOptions) => {
+			// 下面判断代码解释 *** !item?.children?.length   ==>   (!item.children || item.children.length === 0)
+			if (!item?.children?.length) return newArr.push(getItem(item.title, item.path, addIcon(item.icon!)));
+			newArr.push(getItem(item.title, item.path, addIcon(item.icon!), deepLoopFloat(item.children)));
+		});
+		return newArr;
+	};
+
+	const getMenuData = async () => {
+		console.log(deepLoopFloat(formatMenuRouterList(routerList)), 'formatRouterList(routerList)', routerList);
+		setMenuList(deepLoopFloat(formatMenuRouterList(routerList)));
+		// 存储处理过后的所有面包屑导航栏到 redux 中
+		dispatch(setBreadcrumbList({ breadcrumbList: findAllBreadcrumb(formatMenuRouterList(routerList)) }));
+		// 把路由菜单处理成一维数组，存储到 redux 中，做菜单权限判断
+		const dynamicRouter = handleRouter(formatMenuRouterList(routerList));
+		dispatch(setAuthRouter({ authRouter: dynamicRouter }));
+		// setMenuList(formatMenuRouterList(routerList));
+	};
+	useEffect(() => {
+		getMenuData();
+	}, []);
+
+	// 刷新页面菜单保持高亮
+	useEffect(() => {
+		setSelectedKeys([pathname]);
+		isCollapsed ? null : setOpenKeys(getOpenKeys(pathname));
+	}, [pathname, isCollapsed]);
+
+	const handleMenuClick: MenuProps['onClick'] = useCallback(
+		({ key }: { key: string }) => {
+			const route = searchRoute(key, formatMenuRouterList(routerList));
+			if (route.isLink) window.open(route.isLink, '_blank');
+			console.log(key,'key')
+			navigate(key);
+		},
+		[routerList]
+	);
+	const handleMenuOpenChange = useCallback((openKeys: string[]) => {
+		if (openKeys.length === 0 || openKeys.length === 1) return setOpenKeys(openKeys);
+		const latestOpenKey = openKeys[openKeys.length - 1];
+		if (latestOpenKey.includes(openKeys[0])) return setOpenKeys(openKeys);
+		setOpenKeys([latestOpenKey]);
+	}, []);
+console.log(menuList,'menuList')
+
+	return (
+		<Sider trigger={null} collapsible collapsed={isCollapsed} width={220} theme="dark">
+			<div>
+				<div></div>
+				<Menu
+					theme="dark"
+					mode="inline"
+					triggerSubMenuAction="click"
+					openKeys={openKeys}
+					selectedKeys={selectedKeys}
+					items={menuList}
+					onClick={handleMenuClick}
+					onOpenChange={handleMenuOpenChange}
+				/>
+			</div>
+		</Sider>
+	);
+};
+export default memo(LayoutSiderMenu);

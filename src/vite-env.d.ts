@@ -33,3 +33,15 @@ declare let AMap: any;
 declare let AMapUI: any;
 declare let Loca: any;
 declare let ___onAPILoaded: any;
+
+// * Menu
+declare namespace Menu {
+	interface MenuOptions {
+		path: string;
+		title: string;
+		icon?: string;
+		isLink?: string;
+		close?: boolean;
+		children?: MenuOptions[];
+	}
+}

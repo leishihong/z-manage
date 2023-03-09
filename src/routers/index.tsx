@@ -30,10 +30,6 @@ const renderRoutes = (routes: Array<RouteObject>) => {
 
 // 路由注册
 export default function SetUpRoutes() {
-	console.log(
-		compact(renderRoutes(routesConfig)),
-		'renderRoutes(routesConfig)'
-	);
 	const element = useRoutes(compact(renderRoutes(routesConfig)));
 	return element;
 }

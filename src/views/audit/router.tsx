@@ -5,6 +5,7 @@ export default [
 	{
 		name: 'audit',
 		// element: <LayoutPage/>,
+		path:'/audit',
 		meta: {
 			title: '审核中心'
 		},
@@ -12,20 +13,22 @@ export default [
 			{
 				name: 'activityAudit',
 				path: '/audit/activity',
-				element: lazy(() => import('views/audit/activity-audit')),
+				element: lazyLoad('audit/activity-audit'),
 				// element: lazyLoad('activity-audit'),
 				meta: {
 					title: '活动发布',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'activity'
 				}
 			},
 			{
 				name: 'communityAudit',
 				path: '/audit/community',
-				element: lazyLoad('community-audit'),
+				element: lazyLoad('audit/community-audit'),
 				meta: {
 					title: '社团入驻',
-					requiresAuth: true
+					requiresAuth: true,
+					key:'community'
 				}
 			}
 		]

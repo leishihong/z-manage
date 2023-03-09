@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom/client';
+// import 'virtual:svg-icons-register';
+
 import App from './App';
 
-import './index.less';
+import './App.less';
 
 const { VITE_APP_ENV } = import.meta.env;
 
@@ -11,16 +13,6 @@ const securityConfig =
 		: { serviceHost: `${VITE_APP_ENV}/_AMapService` };
 window._AMapSecurityConfig = securityConfig;
 
-const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(<App />);
-
-// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-// 	<React.StrictMode>
-// 		<Provider store={store}>
-// 			<App />
-// 		</Provider>
-// 	</React.StrictMode>
-// );

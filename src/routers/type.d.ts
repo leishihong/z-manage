@@ -1,5 +1,6 @@
 export interface MetaProps {
 	keepAlive?: boolean;
+  hideInMenu?:boolean;
 	requiresAuth?: boolean;
 	title: string;
 	icon?: string;
@@ -8,10 +9,11 @@ export interface MetaProps {
 }
 
 export interface RouteObject {
-	path: string;
+	path?: string;
 	name?: string;
+	index?: boolean;
 	element?: ReactNode | LazyExoticComponent<() => JSX.Element>;
-	children?: Array<RouteObject>;
+	children?: RouteObject[];
 	redirect?: string;
 	meta?: MetaProps;
   isLink?: string;
