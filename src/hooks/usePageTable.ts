@@ -1,7 +1,6 @@
 import React, { FC, memo, useState, useCallback, useEffect, useMemo } from 'react';
 import { PaginationProps, message } from 'antd';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useRequest } from 'ahooks';
 
 import { IResponseData } from 'api/type';
 
@@ -14,7 +13,7 @@ interface IProps {
 	state: { [key: string]: any };
 }
 
-export const useArcoTable = ({ fetchApi, state, fetchStatusApi, fetchDeleteApi }: IProps) => {
+export const usePageTable = ({ fetchApi, state, fetchStatusApi, fetchDeleteApi }: IProps) => {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const { modalConfirm } = useModalConfirm();

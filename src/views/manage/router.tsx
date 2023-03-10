@@ -13,7 +13,7 @@ export default [
 			{
 				path: '/manage/activity',
 				name: 'activityManage',
-				element: lazyLoad('manage/activity-manage'),
+				element: lazyLoad('manage/activity-manage/index'),
 				meta: {
 					title: '活动列表',
 					requiresAuth: true,
@@ -23,7 +23,7 @@ export default [
 			{
 				path: '/manage/community',
 				name: 'communityManage',
-				element: lazyLoad('manage/community-manage'),
+				element: lazyLoad('manage/community-manage/index'),
 				meta: {
 					title: '社团列表',
 					requiresAuth: true,
@@ -33,7 +33,7 @@ export default [
 			{
 				path: '/manage/moka',
 				name: 'moKaManage',
-				element: lazyLoad('manage/moka-manage'),
+				element: lazyLoad('manage/moka-manage/index'),
 				meta: {
 					title: 'MoKa管理',
 					requiresAuth: true,

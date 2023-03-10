@@ -1,7 +1,19 @@
 interface IKey {
 	[key: string]: any;
 }
+
 export const genderConfig: IKey = { 1: '男', 2: '女' };
+
+export const status: IKey = { 0: '启用', 1: '禁用' };
+export const applyStatus: IKey = {
+  0: '申请中',
+  1: '通过',
+  2: '拒绝'
+};
+export const communityTagType: IKey = {
+  0: '普通社团',
+  1: '口碑商家'
+};
 
 // 社团类型
 export const communityTypeConfig: IKey = {
