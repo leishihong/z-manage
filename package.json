@@ -100,7 +100,7 @@
 		"vite-plugin-svg-icons": "^2.0.1"
 	},
 	"lint-staged": {
-		"*.{css,scss}": [
+		"src/**/*.{css,less}": [
 			"stylelint --fix --cache"
 		],
 		"src/**/*.{ts,tsx}": [

@@ -2,7 +2,7 @@
 
 module.exports = {
 	extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
-	plugins: ['postcss-less'], // 配置stylelint less拓展插件
+	// plugins: ['postcss-less'], // 配置stylelint less拓展插件
 	rules: {
 		'selector-class-pattern': null,
 		'no-descending-specificity': null,
