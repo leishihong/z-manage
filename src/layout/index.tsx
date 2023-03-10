@@ -1,29 +1,49 @@
-import { PropsWithChildren, FC, memo, ReactNode, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from 'react';
+import {
+	FC,
+	memo,
+	ReactNode,
+	JSXElementConstructor,
+	ReactElement,
+	ReactFragment,
+	ReactPortal
+} from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout, Button, FloatButton, Card } from 'antd';
-import { QuestionCircleOutlined, SyncOutlined, SmileOutlined, DoubleRightOutlined } from '@ant-design/icons';
-import { css } from '@emotion/css';
-import { PageContainer, ProLayout, ProCard, SettingDrawer } from '@ant-design/pro-components';
-import type { ProSettings } from '@ant-design/pro-components';
+import { Layout, FloatButton,  } from 'antd';
 
 import LayoutHeader from './includes/LayoutHeader';
 import LayoutSiderMenu from './includes/LayoutSiderMenu';
-import LayoutTagViews from './includes/LayoutTagViews'
+import LayoutTagViews from './includes/LayoutTagViews';
 
 import { layoutRouterList } from 'routers/AppRouter';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { toggleCollapse, setAuthButtons } from 'store/globalSlice';
 import { GlobalState } from 'store/globalSlice/interface';
 
-import cx from './style/index.module.less';
+import 'layout/style/layout-app.less';
 
 const { Header, Content, Footer } = Layout;
 
+const navbarHeight = 55;
+
 const DefaultLayout: FC = () => {
-	const { isCollapsed }: GlobalState = useAppSelector(({ globalState }) => globalState);
+	const { isCollapsed, settings }: GlobalState = useAppSelector(
+		({ globalState }) => globalState
+	);
 	const dispatch = useAppDispatch();
 	const [pathname, setPathname] = useState('/default');
 
+	const menuWidth = useMemo(
+		() => (isCollapsed ? 80 : settings?.menuWidth),
+		[isCollapsed, settings]
+	);
+
+	const { paddingLeft, paddingTop } = useMemo(
+		() => ({
+			paddingLeft: settings.sliderMenu ? { paddingLeft: menuWidth } : {},
+			paddingTop: settings.sliderMenu ? { paddingTop: navbarHeight } : {}
+		}),
+		[isCollapsed, menuWidth, settings.sliderMenu]
+	);
 	// 获取按钮权限列表
 	const getAuthButtonsList = async () => {
 		// const { data } = await getAuthorButtons();
@@ -43,69 +63,31 @@ const DefaultLayout: FC = () => {
 			window.removeEventListener('resize', listeningWindowResize);
 		};
 	}, []);
+
 	return (
-		<section className={cx['container']} id="test-pro-layout">
-			{/* <ProLayout
-				siderWidth={216}
-				menuDataRender={() => layoutRouterList}
-				router={layoutRouterList}
-				layout="mix"
-				menuItemRender={(item: { path: any }, dom: any) => (
-					<a
-						onClick={() => {
-							setPathname(item.path || '/welcome');
-						}}
-					>
-						{dom}
-					</a>
-				)}
-				location={{ pathname }}
-				avatarProps={{
-					src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-					size: 'small',
-					title: '七妮妮'
-				}}
-				{...settings}
+		<section className={'app-container'} id="test-pro-layout">
+			<LayoutSiderMenu />
+			<div
+				className="app-layout"
+				style={Object.assign({}, paddingLeft, {
+					width: `calc(100% - ${menuWidth})`
+				})}
 			>
-				<PageContainer>
-					<ProCard
-						style={{
-							height: '100vh',
-							minHeight: 800
-						}}
-					>
-						<Outlet />
-						<FloatButton.BackTop />
-					</ProCard>
-				</PageContainer>
-			</ProLayout>
-			<SettingDrawer
-				pathname={pathname}
-				enableDarkTheme
-				getContainer={() => document.getElementById('test-pro-layout')}
-				settings={settings}
-				onSettingChange={(changeSetting: any) => {
-					setSetting(changeSetting);
-				}}
-				disableUrlParams={false}
-			/> */}
-				<LayoutSiderMenu />
-				<Content className="main-content">
-				<LayoutHeader />
-					<LayoutTagViews/>
-					<div className="content-box">
-						<div
-							className="article-content"
-							style={{
-								height: '100vh',
-								minHeight: 800,
-							}}
-						>
-							<Outlet />
-							<FloatButton.BackTop />
-						</div>
-					</div>
-				</Content>
+				{/* <div
+					className="app-layout-space"
+					style={{
+						height: settings.tagViews ? navbarHeight + 38 : navbarHeight
+					}}
+				/> */}
+				<div className="app-layout-header" style={{ left: menuWidth }}>
+					<LayoutHeader />
+					<LayoutTagViews />
+				</div>
+				<div className="app-layout-content" id="app-layout-content">
+					<Outlet />
+					<FloatButton.BackTop target={() => (document as any).body} />
+				</div>
+			</div>
 		</section>
 	);
 };

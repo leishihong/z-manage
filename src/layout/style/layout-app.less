@@ -1,0 +1,48 @@
+.app-container {
+	height: 100vh;
+	min-width: 1080px;
+	.ant-layout-sider {
+		box-sizing: border-box;
+	}
+	.app-layout {
+		height: 100vh;
+		overflow-x: hidden;
+		transition: padding-left .2s;
+		&-header {
+			position: sticky;
+			right: 0;
+			top: 0;
+			z-index: 11;
+			transition: left .2s;
+			box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 0.12);
+		}
+		&-content {
+			min-height: calc(100vh - 93px);
+			height: calc(100% - 93px);
+			overflow: auto;
+			padding: 24px 16px;
+			box-sizing: border-box;
+		}
+	}
+	.ant-layout {
+		/* 防止 tabs 超出不收缩 */
+		overflow-x: hidden;
+		.ant-layout-content {
+			box-sizing: border-box;
+			flex: 1;
+			padding: 10px 12px;
+			overflow-x: hidden;
+		}
+	}
+}
+
+.fixed-settings {
+	position: fixed;
+	top: 280px;
+	right: 0;
+
+	svg {
+		font-size: 18px;
+		vertical-align: -4px;
+	}
+}

@@ -8,7 +8,7 @@ export default [
 		name: 'home',
 		element: lazyLoad('home/index'),
 		meta: {
-			title: '欢迎页',
+			title: '首页',
 			requiresAuth: false,
 			key:'home'
 		}

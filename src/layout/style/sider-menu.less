@@ -1,0 +1,41 @@
+.layout-slide {
+	position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+	box-sizing: border-box;
+	// box-shadow: 3px 0px 4px 0px rgba(0,0,0,0.2);
+	.ant-layout-sider-children {
+		height: 100%;
+	}
+	.layout-slide-content {
+		height: 100%;
+		// box-shadow: 3px 0px 4px 0px rgba(0,0,0,0.2);
+		.logo-box {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #ffffff;
+			height: 55px;
+			border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+			.logo-img {
+				width: 30px;
+				margin: 0;
+			}
+			.logo-text {
+				margin: 0 0 0 10px;
+				font-size: 18px;
+				font-family: PingFangSC-Semibold, PingFang SC;
+				font-weight: 600;
+				color: rgba(0, 0, 0, 0.88);
+				white-space: nowrap;
+			}
+		}
+		.layout-slide-menu {
+			height: calc(100% - 55px);
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+	}
+}

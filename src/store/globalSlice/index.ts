@@ -7,8 +7,10 @@ const initialState: GlobalState = {
 	settings: {
 		themeColor: '#1677FF',
 		breadcrumb: true,
+		sliderMenu:true,
 		tagViews: true,
-		footer: false
+		footer: false,
+		menuWidth:220
 	},
 	isCollapsed: false,
 	userInfo: {

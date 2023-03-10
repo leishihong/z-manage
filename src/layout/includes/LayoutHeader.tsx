@@ -6,7 +6,8 @@ import {
 	Modal,
 	Dropdown,
 	Layout,
-	Breadcrumb
+	Breadcrumb,
+	Button
 } from 'antd';
 import type { MenuProps } from 'antd';
 import {
@@ -24,7 +25,6 @@ import { useNavigate } from 'react-router-dom';
 import { useFullscreen, useRequest } from 'ahooks';
 import { map } from 'lodash';
 
-
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { updateRouterPrompt, toggleCollapse } from 'store/globalSlice';
 import { handleLogout } from 'store/loginSlice/actions';
@@ -32,8 +32,9 @@ import { handleLogout } from 'store/loginSlice/actions';
 import { HOME_URL } from 'constants/config';
 
 import IconButton from './IconButton';
+import AvatarIcon from 'assets/images/user-avatar.png';
 
-import cx from '../style/index.module.less';
+import 'layout/style/layout-header.less';
 
 const { Header } = Layout;
 
@@ -60,7 +61,7 @@ const Navbar: FC = () => {
 		{
 			label: (
 				<Fragment>
-					<SettingOutlined className={cx['dropdown-icon']} />
+					<SettingOutlined className="dropdown-icon" />
 					用户设置
 				</Fragment>
 			),
@@ -69,7 +70,7 @@ const Navbar: FC = () => {
 		{
 			label: (
 				<Fragment>
-					<PoweroffOutlined className={cx['dropdown-icon']} />
+					<PoweroffOutlined className="dropdown-icon" />
 					用户设置
 				</Fragment>
 			),
@@ -88,10 +89,10 @@ const Navbar: FC = () => {
 	};
 
 	return (
-		<Header className={cx['layout-header']}>
-			<div className={cx.left}>
+		<Header className="layout-header">
+			<div className="left">
 				<div
-					className={cx['collapsed']}
+					className="collapsed"
 					onClick={() => {
 						dispatch(toggleCollapse({ isCollapsed: !isCollapsed }));
 					}}
@@ -102,20 +103,22 @@ const Navbar: FC = () => {
 						<MenuFoldOutlined id="isCollapse" />
 					)}
 				</div>
-				{!settings.breadcrumb && (
+				{settings.breadcrumb && (
 					<Breadcrumb>
-						<Breadcrumb.Item href={`#${HOME_URL}`}>首页</Breadcrumb.Item>
+						<Breadcrumb.Item key="home" onClick={() => navigate(HOME_URL)}>
+							首页
+						</Breadcrumb.Item>
 						{map(breadcrumbList[pathname], (item: string) => {
 							return (
-								<Breadcrumb.Item key={item}>
-									{item !== '首页' ? item : null}
-								</Breadcrumb.Item>
+								item !== '首页' && (
+									<Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>
+								)
 							);
 						})}
 					</Breadcrumb>
 				)}
 			</div>
-			<ul className={cx.right}>
+			<ul className="right">
 				<li>
 					<Tooltip title={isFullscreen ? '退出全屏' : '全屏'}>
 						<IconButton
@@ -133,13 +136,11 @@ const Navbar: FC = () => {
 							placement="bottomRight"
 							disabled={userLoading}
 						>
-							<Avatar size={32} style={{ cursor: 'pointer' }}>
-								{userLoading ? (
-									<LoadingOutlined />
-								) : (
-									<img alt="avatar" src={userInfo.avatar} />
-								)}
-							</Avatar>
+							<Avatar
+								size={36}
+								style={{ cursor: 'pointer' }}
+								src={<img alt="avatar" src={AvatarIcon} />}
+							/>
 						</Dropdown>
 					</li>
 				)}

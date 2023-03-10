@@ -32,7 +32,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			react(),
 			splitVendorChunkPlugin(),
 			AutoImport({
-				imports: ['react', 'react-router-dom'],
+				imports: ['react', 'react-router-dom','ahooks'],
 				dts: 'src/auto-import.d.ts' // 路径下自动生成文件夹存放全局指令
 			}),
 

@@ -1,0 +1,41 @@
+.layout-header {
+	height: 55px;
+	padding: 0 20px;
+	background-color: #ffffff !important;
+	border-color: #f6f6f6 !important;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #f6f6f6;
+	background-color: transparent;
+	.left {
+		display: flex;
+		align-items: center;
+		.collapsed {
+			margin-right: 20px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: color 0.3s;
+		}
+	}
+
+	.right {
+		display: flex;
+		list-style: none;
+		.dropdown-icon {
+			margin-right: 8px;
+			font-size: 16px;
+			vertical-align: text-bottom;
+		}
+		li {
+			padding: 0 8px;
+			display: flex;
+			align-items: center;
+		}
+
+		a {
+			text-decoration: none;
+			color: var(--color-text-1);
+		}
+	}
+}
