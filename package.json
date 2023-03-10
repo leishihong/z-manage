@@ -78,6 +78,7 @@
 		"picocolors": "^1.0.0",
 		"postcss-less": "^1.1.5",
 		"prettier": "^2.8.3",
+		"pretty-quick": "^3.1.3",
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^6.0.0",
 		"rollup-plugin-visualizer": "^5.9.0",
@@ -99,9 +100,12 @@
 		"vite-plugin-svg-icons": "^2.0.1"
 	},
 	"lint-staged": {
+		"src/**/*.{css,scss}": [
+			"stylelint --fix --cache"
+		],
 		"src/**/*.{ts,tsx}": [
-			"npm run lint:eslint --fix",
-			"prettier --write --loglevel warn"
+			"pretty-quick --staged",
+			"eslint --fix --cache"
 		]
 	}
 }

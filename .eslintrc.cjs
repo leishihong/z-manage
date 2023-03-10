@@ -66,8 +66,9 @@ module.exports = {
 		// 		allowTemplateLiterals: true,
 		// 	},
 		// ],
-		quotes: [2, "single"], // 使用单引号
-		"prettier/prettier": ["warn", { singleQuote: true }],
+		quotes: [2, "single", "avoid-escape"], // 要求统一使用单引号符号
+		// quotes: [1, "single"], // 使用单引号
+		"prettier/prettier": ["off", { singleQuote: true }],
 		"react/jsx-no-undef": "off",
 		"react/prop-types": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",

@@ -1,4 +1,5 @@
-# react 嵌套路由页面404
+# react 嵌套路由页面 404
+
 ```
 reactjs 刷新包含嵌套路由的页面时得到“404 not found”，因为Vite不会将所有路由重定向到index.html
 
@@ -6,7 +7,9 @@ reactjs 刷新包含嵌套路由的页面时得到“404 not found”，因为Vi
 如何将Vite in dev配置为具有客户端路由的SPA，以便将所有请求重定向到根目录index.html？
 [嵌套路由页面404](https://www.saoniuhuo.com/question/detail-2355634.html)
 ```
+
 # 解决方案
+
 ```
 通过在我的index.html中添加一个base标签修复：
 <!DOCTYPE html>
@@ -26,3 +29,6 @@ reactjs 刷新包含嵌套路由的页面时得到“404 not found”，因为Vi
   </body>
 </html>
 ```
+
+"npm run lint:eslint --fix",
+"prettier --write --loglevel warn",
