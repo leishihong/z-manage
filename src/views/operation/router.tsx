@@ -5,9 +5,9 @@ export default [
 	{
 		name: 'operation',
 		// element: <LayoutPage />,
-		path:'/operation',
+		path: '/operation',
 		meta: {
-			title: '营销配置'
+			title: '营销配置',
 		},
 		children: [
 			{
@@ -17,8 +17,8 @@ export default [
 				meta: {
 					title: '横幅广告',
 					requiresAuth: true,
-					key:'bannerAdvertise'
-				}
+					key: 'bannerAdvertise',
+				},
 			},
 			{
 				path: '/operation/hotNews',
@@ -27,8 +27,8 @@ export default [
 				meta: {
 					title: '热门资讯',
 					requiresAuth: true,
-					key:'hotNews'
-				}
+					key: 'hotNews',
+				},
 			},
 			{
 				path: '/operation/hotDiscussion',
@@ -37,9 +37,9 @@ export default [
 				meta: {
 					title: '热门讨论',
 					requiresAuth: true,
-					key:'hotDiscussion'
-				}
-			}
-		]
-	}
+					key: 'hotDiscussion',
+				},
+			},
+		],
+	},
 ];

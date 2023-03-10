@@ -1,9 +1,9 @@
 import { createContext } from 'react';
 interface GlobalContext {
-  theme: string;
-  setTheme: (theme?: string) => void;
+	theme: string;
+	setTheme: (theme?: string) => void;
 }
 export const GlobalContext = createContext<GlobalContext>({
-  theme: 'light',
-  setTheme: () => {},
+	theme: 'light',
+	setTheme: () => {},
 });

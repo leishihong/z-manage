@@ -5,9 +5,9 @@ export default [
 	{
 		name: 'audit',
 		// element: <LayoutPage/>,
-		path:'/audit',
+		path: '/audit',
 		meta: {
-			title: '审核中心'
+			title: '审核中心',
 		},
 		children: [
 			{
@@ -18,8 +18,8 @@ export default [
 				meta: {
 					title: '活动发布',
 					requiresAuth: true,
-					key:'activity'
-				}
+					key: 'activity',
+				},
 			},
 			{
 				name: 'communityAudit',
@@ -28,9 +28,9 @@ export default [
 				meta: {
 					title: '社团入驻',
 					requiresAuth: true,
-					key:'community'
-				}
-			}
-		]
-	}
+					key: 'community',
+				},
+			},
+		],
+	},
 ];

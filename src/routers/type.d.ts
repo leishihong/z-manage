@@ -1,6 +1,6 @@
 export interface MetaProps {
 	keepAlive?: boolean;
-  hideInMenu?:boolean;
+	hideInMenu?: boolean;
 	requiresAuth?: boolean;
 	title: string;
 	icon?: string;
@@ -16,6 +16,6 @@ export interface RouteObject {
 	children?: RouteObject[];
 	redirect?: string;
 	meta?: MetaProps;
-  isLink?: string;
-  [key: string]: any;
+	isLink?: string;
+	[key: string]: any;
 }

@@ -7,21 +7,21 @@ const initialState: GlobalState = {
 	settings: {
 		themeColor: '#1677FF',
 		breadcrumb: true,
-		sliderMenu:true,
+		sliderMenu: true,
 		tagViews: true,
 		footer: false,
-		menuWidth:220
+		menuWidth: 220,
 	},
 	isCollapsed: false,
 	userInfo: {
-		permissions: {}
+		permissions: {},
 	},
 	authButtons: {},
 	authRouter: [],
 	routerPrompt: false,
 	slideMenuList: [],
 	breadcrumbList: {},
-	tagViewList: [{ title: '首页', path: HOME_URL }]
+	tagViewList: [{ title: '首页', path: HOME_URL }],
 };
 
 const globalSlice = createSlice({
@@ -45,24 +45,17 @@ const globalSlice = createSlice({
 		setAuthRouter: (state, { payload }: PayloadAction<GlobalState & any>) => {
 			state.authRouter = payload.authRouter;
 		},
-		setBreadcrumbList: (
-			state,
-			{ payload }: PayloadAction<GlobalState & any>
-		) => {
+		setBreadcrumbList: (state, { payload }: PayloadAction<GlobalState & any>) => {
 			state.breadcrumbList = payload.breadcrumbList;
 		},
-		setSlideMenuList: (
-			state,
-			{ payload }: PayloadAction<GlobalState & any>
-		) => {
+		setSlideMenuList: (state, { payload }: PayloadAction<GlobalState & any>) => {
 			state.slideMenuList = payload.slideMenuList;
 		},
-		setTagViewList:(state,
-			{ payload }: PayloadAction<GlobalState & any>)=>{
-				state.tagViewList = payload.tagViewList;
-		}
+		setTagViewList: (state, { payload }: PayloadAction<GlobalState & any>) => {
+			state.tagViewList = payload.tagViewList;
+		},
 	},
-	extraReducers: {}
+	extraReducers: {},
 });
 export const {
 	updateUserInfo,
@@ -72,6 +65,6 @@ export const {
 	setAuthRouter,
 	setBreadcrumbList,
 	setSlideMenuList,
-	setTagViewList
+	setTagViewList,
 } = globalSlice.actions;
 export default globalSlice.reducer;

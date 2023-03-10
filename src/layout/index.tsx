@@ -1,14 +1,6 @@
-import {
-	FC,
-	memo,
-	ReactNode,
-	JSXElementConstructor,
-	ReactElement,
-	ReactFragment,
-	ReactPortal
-} from 'react';
+import { FC, memo, ReactNode, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout, FloatButton,  } from 'antd';
+import { Layout, FloatButton } from 'antd';
 
 import LayoutHeader from './includes/LayoutHeader';
 import LayoutSiderMenu from './includes/LayoutSiderMenu';
@@ -26,21 +18,16 @@ const { Header, Content, Footer } = Layout;
 const navbarHeight = 55;
 
 const DefaultLayout: FC = () => {
-	const { isCollapsed, settings }: GlobalState = useAppSelector(
-		({ globalState }) => globalState
-	);
+	const { isCollapsed, settings }: GlobalState = useAppSelector(({ globalState }) => globalState);
 	const dispatch = useAppDispatch();
 	const [pathname, setPathname] = useState('/default');
 
-	const menuWidth = useMemo(
-		() => (isCollapsed ? 80 : settings?.menuWidth),
-		[isCollapsed, settings]
-	);
+	const menuWidth = useMemo(() => (isCollapsed ? 80 : settings?.menuWidth), [isCollapsed, settings]);
 
 	const { paddingLeft, paddingTop } = useMemo(
 		() => ({
 			paddingLeft: settings.sliderMenu ? { paddingLeft: menuWidth } : {},
-			paddingTop: settings.sliderMenu ? { paddingTop: navbarHeight } : {}
+			paddingTop: settings.sliderMenu ? { paddingTop: navbarHeight } : {},
 		}),
 		[isCollapsed, menuWidth, settings.sliderMenu]
 	);
@@ -70,7 +57,7 @@ const DefaultLayout: FC = () => {
 			<div
 				className="app-layout"
 				style={Object.assign({}, paddingLeft, {
-					width: `calc(100% - ${menuWidth})`
+					width: `calc(100% - ${menuWidth})`,
 				})}
 			>
 				{/* <div

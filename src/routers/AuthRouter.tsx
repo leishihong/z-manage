@@ -17,9 +17,9 @@ interface IProps {
 const defaultProps = {
 	route: {
 		meta: {
-			title: ''
-		}
-	}
+			title: '',
+		},
+	},
 } as IProps;
 
 const AuthRouter: FC<Partial<IProps>> = (props) => {
@@ -29,7 +29,7 @@ const AuthRouter: FC<Partial<IProps>> = (props) => {
 	const { token } = store.getState().loginState;
 	const redirectParams = {
 		search,
-		redirect: encodeURIComponent(window.location.href)
+		redirect: encodeURIComponent(window.location.href),
 	};
 	if (route?.meta?.title) document.title = route.meta.title;
 	// 判断当前路由是否需要访问权限(不需要权限直接放行)

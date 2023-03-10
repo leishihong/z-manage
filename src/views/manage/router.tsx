@@ -5,9 +5,9 @@ export default [
 	{
 		name: 'manage',
 		// element: <LayoutPage/>,
-		path:'/manage',
+		path: '/manage',
 		meta: {
-			title: '管理中心'
+			title: '管理中心',
 		},
 		children: [
 			{
@@ -17,8 +17,8 @@ export default [
 				meta: {
 					title: '活动列表',
 					requiresAuth: true,
-					key:'activity'
-				}
+					key: 'activity',
+				},
 			},
 			{
 				path: '/manage/community',
@@ -27,8 +27,8 @@ export default [
 				meta: {
 					title: '社团列表',
 					requiresAuth: true,
-					key:'community'
-				}
+					key: 'community',
+				},
 			},
 			{
 				path: '/manage/moka',
@@ -37,9 +37,9 @@ export default [
 				meta: {
 					title: 'MoKa管理',
 					requiresAuth: true,
-					key:'moka'
-				}
-			}
-		]
-	}
+					key: 'moka',
+				},
+			},
+		],
+	},
 ];

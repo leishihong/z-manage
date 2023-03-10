@@ -6,7 +6,7 @@ export default [
 		// element: <LayoutPage/>,
 		path: '/order',
 		meta: {
-			title: '订单管理'
+			title: '订单管理',
 		},
 		children: [
 			{
@@ -16,9 +16,9 @@ export default [
 				meta: {
 					title: '订单列表',
 					requiresAuth: true,
-					key: 'order-manage'
-				}
-			}
-		]
-	}
+					key: 'order-manage',
+				},
+			},
+		],
+	},
 ];

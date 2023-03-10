@@ -10,7 +10,7 @@ export default [
 		meta: {
 			title: '首页',
 			requiresAuth: false,
-			key:'home'
-		}
-	}
+			key: 'home',
+		},
+	},
 ];

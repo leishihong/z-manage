@@ -8,8 +8,8 @@ import loginSlice from './loginSlice/index';
  * @see https://redux-toolkit.js.org/usage/usage-with-typescript
  */
 export const rootReducer = combineReducers({
-  globalState: globalSlice,
-  loginState: loginSlice,
+	globalState: globalSlice,
+	loginState: loginSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -10,12 +10,7 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { toggleCollapse, setTagViewList } from 'store/globalSlice';
 import { GlobalState } from 'store/globalSlice/interface';
 
-import {
-	searchRoute,
-	getOpenKeys,
-	findAllBreadcrumb,
-	handleRouter
-} from 'layout/utils';
+import { searchRoute, getOpenKeys, findAllBreadcrumb, handleRouter } from 'layout/utils';
 import { formatMenuRouterList, routerList } from 'routers/AppRouter';
 
 import { HOME_URL } from 'constants/config';
@@ -25,9 +20,7 @@ import 'layout/style/tag-views.less';
 const { TabPane } = Tabs;
 
 const LayoutTagViews: FC = () => {
-	const { tagViewList, settings }: GlobalState = useAppSelector(
-		({ globalState }) => globalState
-	);
+	const { tagViewList, settings }: GlobalState = useAppSelector(({ globalState }) => globalState);
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
@@ -39,18 +32,18 @@ const LayoutTagViews: FC = () => {
 				{
 					key: '1',
 					label: <span>关闭当前</span>,
-					onClick: () => delTabs(pathname)
+					onClick: () => delTabs(pathname),
 				},
 				{
 					key: '2',
 					label: <span>关闭其它</span>,
-					onClick: () => closeMultipleTab(pathname)
+					onClick: () => closeMultipleTab(pathname),
 				},
 				{
 					key: '3',
 					label: <span>关闭所有</span>,
-					onClick: () => closeMultipleTab()
-				}
+					onClick: () => closeMultipleTab(),
+				},
 			]}
 		/>
 	);
@@ -100,9 +93,7 @@ const LayoutTagViews: FC = () => {
 			// message.success('你删除了Tabs标签 😆😆😆');
 			dispatch(
 				setTagViewList({
-					tagViewList: tagViewList.filter(
-						(item: Menu.MenuOptions) => item.path !== tabPath
-					)
+					tagViewList: tagViewList.filter((item: Menu.MenuOptions) => item.path !== tabPath),
 				})
 			);
 		},
@@ -138,12 +129,7 @@ const LayoutTagViews: FC = () => {
 							);
 						})}
 					</Tabs>
-					<Dropdown
-						overlay={menu}
-						placement="bottom"
-						arrow={{ pointAtCenter: true }}
-						trigger={['click']}
-					>
+					<Dropdown overlay={menu} placement="bottom" arrow={{ pointAtCenter: true }} trigger={['click']}>
 						<Button className="more-button" type="primary" size="small">
 							更多
 							<DownOutlined />

@@ -1,4 +1,4 @@
-import {RouteObject} from 'routers/type'
+import { RouteObject } from 'routers/type';
 /**
  * @description 获取需要展开的 subMenu
  * @param {String} path 当前访问地址
@@ -7,7 +7,7 @@ import {RouteObject} from 'routers/type'
 export const getOpenKeys = (path: string) => {
 	let newStr = '';
 	const newArr: any[] = [];
-	const arr = path.split('/').map(i => '/' + i);
+	const arr = path.split('/').map((i) => '/' + i);
 	for (let i = 1; i < arr.length - 1; i++) {
 		newStr += arr[i];
 		newArr.push(newStr);
@@ -63,7 +63,7 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
 			getNodePath(menuList[i]);
 		}
 	} catch (e) {
-		return tempPath.map(item => item.title);
+		return tempPath.map((item) => item.title);
 	}
 };
 
@@ -76,10 +76,10 @@ export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]
 	const handleBreadcrumbList: any = {};
 	const loop = (menuItem: Menu.MenuOptions) => {
 		// 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
-		if (menuItem?.children?.length) menuItem.children.forEach(item => loop(item));
+		if (menuItem?.children?.length) menuItem.children.forEach((item) => loop(item));
 		else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
 	};
-	menuList.forEach(item => loop(item));
+	menuList.forEach((item) => loop(item));
 	return handleBreadcrumbList;
 };
 

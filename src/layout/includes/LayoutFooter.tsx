@@ -1,4 +1,3 @@
-
 const LayoutFooter = (props: any) => {
 	const { themeConfig } = props;
 	return (
@@ -14,4 +13,4 @@ const LayoutFooter = (props: any) => {
 	);
 };
 
-export default memo(LayoutFooter)
+export default memo(LayoutFooter);

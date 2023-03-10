@@ -17,10 +17,7 @@ dayjs.locale('en');
 const App: FC = () => {
 	return (
 		<Provider store={store}>
-			<PersistGate
-				loading={<Components.LoadingSpinner />}
-				persistor={persistor}
-			>
+			<PersistGate loading={<Components.LoadingSpinner />} persistor={persistor}>
 				<ConfigProvider
 					componentSize="large"
 					locale={zhCN}
@@ -32,8 +29,8 @@ const App: FC = () => {
 					}}
 					theme={{
 						token: {
-							colorPrimary: '#1677FF'
-						}
+							colorPrimary: '#1677FF',
+						},
 					}}
 				>
 					<BrowserRouter>
