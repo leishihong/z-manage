@@ -1,18 +1,20 @@
-import { FC } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { ConfigProvider, theme } from 'antd';
-import zhCN from 'antd/es/locale/zh_CN';
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
+import { FC } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { ConfigProvider, theme } from "antd";
+import zhCN from "antd/es/locale/zh_CN";
+import dayjs from "dayjs";
+import "dayjs/locale/zh-cn";
 
-import { store, persistor } from 'store/index';
+import { store, persistor } from "store/index";
 
-import SetUpRoutes from 'routers/index';
-import Components from 'components/index';
+import SetUpRoutes from "routers/index";
+import Components from "components/index";
 
-dayjs.locale('en');
+dayjs.locale("en");
+
+console.log(12121212);
 
 const App: FC = () => {
 	return (
@@ -29,7 +31,7 @@ const App: FC = () => {
 					}}
 					theme={{
 						token: {
-							colorPrimary: '#1677FF',
+							colorPrimary: "#1677FF",
 						},
 					}}
 				>
