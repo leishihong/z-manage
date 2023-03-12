@@ -21,6 +21,17 @@ export default [
 				},
 			},
 			{
+				path: '/manage/activity-create',
+				name: 'activityManage',
+				element: lazyLoad('manage/activity-manage/activity-create'),
+				meta: {
+					title: '活动新建',
+					requiresAuth: true,
+					key: 'activity-create',
+					hideInMenu: true,
+				},
+			},
+			{
 				path: '/manage/community',
 				name: 'communityManage',
 				element: lazyLoad('manage/community-manage/index'),

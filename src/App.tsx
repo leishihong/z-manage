@@ -21,7 +21,7 @@ const App: FC = () => {
 		<Provider store={store}>
 			<PersistGate loading={<Components.LoadingSpinner />} persistor={persistor}>
 				<ConfigProvider
-					componentSize="large"
+					componentSize="middle"
 					locale={zhCN}
 					getPopupContainer={(triggerNode: any) => {
 						if (triggerNode) {
